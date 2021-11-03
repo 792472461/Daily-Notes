@@ -10,17 +10,17 @@
  * @return {ListNode}
  */
 var reverseList = function (head) {
-  let p1 = head;
-  let p2 = null
+  let cur = head;
+  let pre = null
 
-  while (p1) {
+  while (cur) {
     // 缓存下个节点
-    const temp = p1.next;
+    const temp = cur.next;
     // 颠倒节点
-    p1.next = p2
-    p2 = p1
-    p1 = temp
+    cur.next = pre
+    pre = cur
+    cur = temp
   }
-  return p2
+  return pre
 };
 
