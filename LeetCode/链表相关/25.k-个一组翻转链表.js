@@ -23,12 +23,14 @@ var reverseKGroup = function (head, k) {
     pre = ret;
   do {
     pre.next = reverse(pre.next, k)
+
     for (let i = 0; i < k && pre; i++) {
       pre = pre.next
     }
-    if (!pre) break
+    if (!pre) {
+      return ret.next
+    }
   } while (1)
-  return ret.next
 };
 
 var reverse = (head, n) => {
@@ -39,6 +41,7 @@ var reverse = (head, n) => {
     pre = pre.next
   }
   if (!pre) return head
+
   pre = null
   while (con--) {
     const next = cur.next

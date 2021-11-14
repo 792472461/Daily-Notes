@@ -16,8 +16,19 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var swapPairs = function(head) {
-
+var swapPairs = function (head) {
+  if (head === null) return head
+  // 虚拟头节点
+  let ret = new ListNode(-1, head),
+    temp = ret
+  while (temp.next && temp.next.next) {
+    let pre = temp.next,
+      cur = temp.next.next
+    pre.next = cur.next
+    cur.next = pre
+    temp.next = cur
+    temp = pre
+  }
+  return ret.next
 };
 // @lc code=end
-
