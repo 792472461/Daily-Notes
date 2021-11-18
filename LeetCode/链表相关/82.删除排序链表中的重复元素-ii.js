@@ -17,23 +17,28 @@
  * @return {ListNode}
  */
 var deleteDuplicates = function (head) {
-  if (head === null) return head
-  let pre = head, cur = head.next
-  while (cur) {
-    // 如果值相等，第二个指针往后移动
-    if (pre.val === cur.val) {
-      cur = cur.next
-      pre.next = cur
+  if (!head) {
+    return head;
+  }
+  // 创建虚拟头结点
+  const dummy = new ListNode(0, head);
+
+  let cur = dummy;
+  // 保证下个和下下个不为null
+  while (cur.next && cur.next.next) {
+    // 如果下个和下下个两个值相等
+    if (cur.next.val === cur.next.next.val) {
+      const x = cur.next.val;
+      // 只要下个和下个相等
+      while (cur.next && cur.next.val === x) {
+        cur.next = cur.next.next;
+      }
     } else {
-      // 不相等，两个指针往后都移动
-      // pre = pre.next
-      // cur = cur.next
-      // [pre, cur] = [pre.next, cur.next]
-      pre = pre.next
-      cur = cur.next
+      // 移动指针
+      cur = cur.next;
     }
   }
-  return head
+  return dummy.next;
 };
 // @lc code=end
 
