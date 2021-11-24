@@ -4,7 +4,8 @@ const { log, locale } = require('@sfs-cli/utils')
 const semver = require('semver')
 const colors = require('colors')
 const userHome = require('user-home')
-const packageConfig = require('../../../package.json')
+const { program } = require('commander')
+const packageConfig = require('../../../lerna.json')
 const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require('./const')
 
 module.exports = cli
@@ -15,10 +16,24 @@ let config
 async function cli () {
   try {
     await prepare()
-    // registerCommand();
+    registerCommand()
   } catch (e) {
     log.error(e.message)
   }
+}
+
+function registerCommand () {
+  program.version(packageConfig.version).usage('<command> [options]')
+
+  program
+    .command('init <template> <app-name>')
+    .description('generate a project from a remote template (legacy API, requires @vue/cli-init)')
+    .option('-c, --clone', 'Use git clone when fetching remote template')
+    .option('--offline', 'Use cached template')
+    .action(() => {
+      // loadCommand('init', '@vue/cli-init')
+      console.log('init')
+    })
 }
 
 async function prepare () {
@@ -32,8 +47,7 @@ async function prepare () {
 }
 
 async function checkGlobalUpdate () {
-  const currentVersion = packageConfig.version
-  console.log(currentVersion)
+  // const currentVersion = packageConfig.version
   // 调用npm模块提供的接口，然后对比
 }
 
