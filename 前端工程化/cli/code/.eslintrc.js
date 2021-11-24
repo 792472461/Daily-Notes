@@ -12,16 +12,11 @@ module.exports = {
     quotes: [2, 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     'quote-props': 'off',
     'no-shadow': ['error'],
-    'node/no-extraneous-require': ['error', {
-      allowModules: [
-        '@vue/cli-service',
-        '@vue/cli-test-utils'
-      ]
-    }]
+    'node/no-extraneous-require': ['error']
   },
   overrides: [
     {
-      files: ['**/__tests__/**/*.js', '**/cli-test-utils/**/*.js'],
+      files: ['**/__tests__/**/*.js'],
       env: {
         jest: true
       },

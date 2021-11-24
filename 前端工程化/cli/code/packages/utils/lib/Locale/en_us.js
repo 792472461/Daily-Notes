@@ -1,3 +1,3 @@
 module.exports = {
-  welcome: 'Welcome using',
+  welcome: 'Welcome using'
 }
