@@ -1,49 +1,49 @@
 class MaxHeap {
-  constructor() {
+  constructor () {
     // 初始化数据
     this.data = []
   }
 
-  size() {
+  size () {
     return this.data.length
   }
 
-  isEmpty() {
+  isEmpty () {
     return !this.data.length
   }
 
-  parent(index) {
+  parent (index) {
     if (index === 0) throw Error('根节点没有父节点')
     return Math.floor((index - 1) / 2)
   }
 
-  leftChild(index) {
+  leftChild (index) {
     return index * 2 + 1
   }
 
-  rightChild() {
-    return index * 2 + 2
+  rightChild () {
+    return this.index * 2 + 2
   }
 
-  add(e) {
+  add (e) {
     this.data.push(e)
     this.shiftUp(this.size() - 1)
   }
 
-  shiftUp(k) {
+  shiftUp (k) {
     while (k > 0 && this.data[this.parent(k)] < this.data[k]) {
       this.swap(k, this.parent(k))
       k = this.parent(k)
     }
   }
 
-  findMax() {
+  findMax () {
     if (this.isEmpty()) throw Error('不能在堆是空得时候获取最大值')
     return this.data[0]
   }
 
   // 删除最大堆
-  extractMax() {
+  extractMax () {
     const ret = this.findMax()
     this.swap(0, this.size() - 1)
     this.data.pop()
@@ -51,7 +51,7 @@ class MaxHeap {
     return ret
   }
 
-  shiftDown(k) {
+  shiftDown (k) {
     while (this.leftChild(k) < this.size()) {
       let j = this.leftChild(k)
       if (j + 1 < this.size() && this.data[j + 1] > this.data[j]) {
@@ -63,7 +63,7 @@ class MaxHeap {
     }
   }
 
-  swap(i, j) {
+  swap (i, j) {
     const temp = this.data[i]
     this.data[i] = this.data[j]
     this.data[j] = temp
