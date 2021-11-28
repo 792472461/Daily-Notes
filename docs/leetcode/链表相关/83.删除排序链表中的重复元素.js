@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*
  * @lc app=leetcode.cn id=83 lang=javascript
  *
@@ -16,9 +17,9 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var deleteDuplicates = function (head) {
+const deleteDuplicates = function (head) {
   if (head === null) return head
-  let pre = head, cur = head.next
+  let pre = head; let cur = head.next
   while (cur) {
     // 如果值相等，第二个指针往后移动
     if (pre.val === cur.val) {
@@ -34,6 +35,5 @@ var deleteDuplicates = function (head) {
     }
   }
   return head
-};
+}
 // @lc code=end
-
