@@ -35,6 +35,7 @@
     "commander": "^8.3.0",
     "dotenv": "^10.0.0",
     "minimist": "^1.2.5",
+    "npmlog": "^6.0.0",
     "root-check": "^1.0.0",
     "semver": "^7.3.5",
     "user-home": "^3.0.0"

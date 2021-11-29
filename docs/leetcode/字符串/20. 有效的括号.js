@@ -2,7 +2,7 @@
  * @param {string} s
  * @return {boolean}
  */
-var isValid = function (s) {
+const isValid = function (s) {
   const leftBrackets = ['{', '(', '[']
   const rightBrackets = ['}', ')', ']']
   const stack = []
@@ -17,4 +17,4 @@ var isValid = function (s) {
     }
   }
   return stack.length === 0
-};
+}

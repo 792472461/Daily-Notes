@@ -26,14 +26,20 @@ function registerCommand () {
   program.version(packageConfig.version).usage('<command> [options]')
 
   program
-    .command('init <template> <app-name>')
-    .description('generate a project from a remote template (legacy API, requires @vue/cli-init)')
-    .option('-c, --clone', 'Use git clone when fetching remote template')
-    .option('--offline', 'Use cached template')
+    .command('init')
+
     .action(() => {
       // loadCommand('init', '@vue/cli-init')
       console.log('init')
     })
+  program
+    .option('--debug', '打开调试模式')
+    .parse(process.argv)
+
+  if (args._.length < 1) {
+    program.outputHelp()
+    console.log()
+  }
 }
 
 async function prepare () {
@@ -80,7 +86,6 @@ function checkUserHome () {
 }
 
 function checkInputArgs () {
-  log.verbose('开始校验输入参数')
   const minimist = require('minimist')
   args = minimist(process.argv.slice(2)) // 解析查询参数
   checkArgs(args) // 校验参数

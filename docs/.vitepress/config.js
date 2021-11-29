@@ -87,8 +87,11 @@ module.exports = {
             ]
           },
           {
-            text: '低代码',
-            link: '/lowcode/'
+            text: 'Typescript',
+            items: [
+              { text: 'Typescript基础', link: '/typescript/basics/index' },
+              { text: 'Typescript进阶', link: '/typescript/senior/index' }
+            ]
           },
           {
             text: 'Vue源码解析',
