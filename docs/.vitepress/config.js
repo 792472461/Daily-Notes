@@ -69,12 +69,21 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         nav: [
           {
-            text: '数据结构',
-            link: '/data-structure/'
+            text: '面试汇总',
+            link: '/interview/',
           },
           {
-            text: 'leetcode',
-            link: '/leetcode/'
+            text: '数据结构与算法',
+            items: [
+              {
+                text: '数据结构',
+                link: '/data-structure/'
+              },
+              {
+                text: 'leetcode',
+                link: '/leetcode/'
+              }
+            ]
           },
           {
             text: '前端工程化',
