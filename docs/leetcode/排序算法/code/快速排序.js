@@ -14,7 +14,7 @@ const swap = (arr, i, j) => {
  * 基础版快排
  * @param {number[]} arr 数组
  */
-const quickSort = (arr) => {
+const quickSort = (data) => {
   /**
    * partition函数
    * @param {number[]} arr 数组
@@ -24,7 +24,7 @@ const quickSort = (arr) => {
    */
   const partition = (arr, l, r) => {
     // 添加随机化
-    const p = Math.floor(Math.random() * (r - l + 1) + l);
+    const p = Math.floor(Math.random() * (r - l + 1) + l)
     swap(arr, l, p)
     // 循环不变量
     // arr[l + 1, ..., j] < v
@@ -51,14 +51,14 @@ const quickSort = (arr) => {
     sort(arr, l, p - 1)
     sort(arr, p + 1, r)
   }
-  sort(arr, 0, arr.length - 1)
+  sort(data, 0, data.length - 1)
 }
 
 /**
  * 双路快排
  * @param {number[]} arr 数组
  */
-const sort2ways = (arr) => {
+const sort2ways = (data) => {
   /**
    * partition函数
    * @param {number[]} arr 数组
@@ -71,15 +71,12 @@ const sort2ways = (arr) => {
     swap(arr, l, Math.floor(Math.random() * (r - l + 1) + l))
 
     // arr[l+1...i-1] <= v; arr[j+1...r] >= v
-    let i = l + 1,
-      j = r;
+    let i = l + 1
+    let j = r
     while (true) {
-      while (i <= j && arr[i] < arr[l])
-        i++;
+      while (i <= j && arr[i] < arr[l]) { i++ }
 
-      while (j >= i && arr[j] > arr[l])
-        j--;
-
+      while (j >= i && arr[j] > arr[l]) { j-- }
 
       if (i >= j) break
       swap(arr, i, j)
@@ -101,14 +98,14 @@ const sort2ways = (arr) => {
     sort(arr, l, p - 1)
     sort(arr, p + 1, r)
   }
-  sort(arr, 0, arr.length - 1)
+  sort(data, 0, data.length - 1)
 }
 
 /**
  * 三路快排
  * @param {number[]} arr 数组
  */
-const sort3ways = (arr) => {
+const sort3ways = (data) => {
   /**
    * 排序函数
    * @param {number[]}} arr 数组
@@ -116,14 +113,14 @@ const sort3ways = (arr) => {
    * @param {number} r 右边标定点
    */
   const sort = (arr, l, r) => {
-    if (l >= r) return;
+    if (l >= r) return
     // 添加随机化
     swap(arr, l, Math.floor(Math.random() * (r - l + 1) + l))
 
     // arr[l + 1, lt] < v, arr[lt + 1, i - 1] == v, arr[gt, r] > v
-    let lt = l,
-      i = l + 1,
-      gt = r + 1
+    let lt = l
+    let i = l + 1
+    let gt = r + 1
     while (i < gt) {
       if (arr[i] < arr[l]) {
         lt++
@@ -142,9 +139,8 @@ const sort3ways = (arr) => {
     sort(arr, l, lt - 1)
     sort(arr, gt, r)
   }
-  sort(arr, 0, arr.length - 1)
+  sort(data, 0, data.length - 1)
 }
-
 
 module.exports = {
   quickSort,

@@ -1,16 +1,4 @@
 /**
- * 数组辅助函数，调换位置
- * @param {number[]} arr 原数组
- * @param {number} i 下标i
- * @param {number} j 下标j
- */
-const swap = (arr, i, j) => {
-  const temp = arr[i]
-  arr[i] = arr[j]
-  arr[j] = temp
-}
-
-/**
  * 希尔排序
  * @param {number[]} arr 数组
  */
@@ -67,13 +55,13 @@ const shellSort3 = (arr) => {
       // 将arr[i]插入到合适的位置
       const t = arr[i]
       let j
-      
+
       for (j = i; j - h >= 0 && t < arr[j - h]; j -= h) {
         arr[j] = arr[j - h]
       }
       arr[j] = t
     }
-    
+
     h = Math.floor(h / 3)
   }
 }

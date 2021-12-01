@@ -2,7 +2,7 @@
 home: true
 heroImage: /favicon.png
 actionText: 开始 →
-actionLink: /data-structure/
+actionLink: /interview/
 
 features:
   - title: 前端面试

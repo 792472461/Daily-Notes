@@ -69,7 +69,7 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         nav: [
           {
-            text: '面试汇总',
+            text: '前端面试汇总',
             link: '/interview/',
           },
           {

@@ -25,7 +25,7 @@ const insertSort = (arr) => {
 
 /**
  * 优化后的插入排序
- * @param {number[]} arr 
+ * @param {number[]} arr
  */
 const insertSort2 = (arr) => {
   for (let i = 0; i < arr.length; i++) {
@@ -41,7 +41,7 @@ const insertSort2 = (arr) => {
 
 /**
  * 换一种方式实现
- * @param {number[]} arr 
+ * @param {number[]} arr
  */
 const insertSort3 = (arr) => {
   for (let i = arr.length - 1; i >= 0; i--) {
