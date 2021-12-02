@@ -88,11 +88,10 @@ module.exports = {
           {
             text: '前端工程化',
             items: [
-              { text: '脚手架', link: '/project/cli' },
-              { text: 'GUI', link: '/project/gui' },
-              { text: '性能监控平台', link: '/project' },
-              { text: '自动化发布', link: '/project/publish' },
-              { text: '自动化测试', link: '/project/test' }
+              { text: '脚手架', link: '/project/cli/' },
+              { text: 'GUI', link: '/project/gui/' },
+              { text: '自动化发布', link: '/project/publish/' },
+              { text: '自动化测试', link: '/project/test/' }
             ]
           },
           {
@@ -112,47 +111,47 @@ module.exports = {
           }
         ],
         sidebar: {
-          '/data-structure/': [
-            {
-              text: '栈',
-              link: '/data-structure/stack/index',
-            },
-            {
-              text: '队列',
-              link: '/data-structure/queue/index',
-            },
-            {
-              text: '链表',
-              link: '/data-structure/linked-list/index',
-            },
-            {
-              text: '树',
-              link: '/tree',
-              children: [
-                {
-                  text: '二分搜索树',
-                  link: '/data-structure/tree/bst'
-                },
-                {
-                  text: '线段树'
-                },
-                {
-                  text: 'AVL树',
-                },
-                {
-                  text: '红黑树',
-                }
-              ]
-            },
-            {
-              text: '堆',
-              link: '/data-structure/heap/index',
-            },
-            {
-              text: '哈希表',
-              link: '/data-structure/hash-map/index',
-            },
-          ],
+          // '/data-structure/': [
+          //   {
+          //     text: '栈',
+          //     link: '/data-structure/stack/index',
+          //   },
+          //   {
+          //     text: '队列',
+          //     link: '/data-structure/queue/index',
+          //   },
+          //   {
+          //     text: '链表',
+          //     link: '/data-structure/linked-list/index',
+          //   },
+          //   {
+          //     text: '树',
+          //     link: '/tree',
+          //     children: [
+          //       {
+          //         text: '二分搜索树',
+          //         link: '/data-structure/tree/bst'
+          //       },
+          //       {
+          //         text: '线段树'
+          //       },
+          //       {
+          //         text: 'AVL树',
+          //       },
+          //       {
+          //         text: '红黑树',
+          //       }
+          //     ]
+          //   },
+          //   {
+          //     text: '堆',
+          //     link: '/data-structure/heap/index',
+          //   },
+          //   {
+          //     text: '哈希表',
+          //     link: '/data-structure/hash-map/index',
+          //   },
+          // ],
 
         }
       },
