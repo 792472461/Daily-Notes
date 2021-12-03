@@ -1,38 +1,14 @@
-/*
- * @lc app=leetcode.cn id=92 lang=javascript
- *
- * [92] 反转链表 II
- */
+const { LinkedList, Node } = require('../basics/LinkedList')
 
-// @lc code=start
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} left
- * @param {number} right
- * @return {ListNode}
- */
-var reverseBetween = function (head, left, right) {
-  if (!head) return null
-  let ret = new ListNode(0, head),
-    pre = ret,
-    cnt = right - left + 1
+const linkedList = new LinkedList()
 
-  while (--left) {
-    pre = pre.next
-  }
-  pre.next = reverse(pre.next, cnt)
-  return ret.next
-};
-var reverse = (head, n) => {
-  let pre = null,
-    cur = head
+for (let i = 0; i < 10; i++) {
+  linkedList.add(i)
+}
+
+const reverse = (head, n) => {
+  let pre = null
+  let cur = head
   while (n--) {
     const next = cur.next
     cur.next = pre
@@ -43,4 +19,18 @@ var reverse = (head, n) => {
   head.next = cur
   return pre
 }
-// @lc code=end
+
+const reverseBetween = function (head, left, right) {
+  if (!head) return null
+  const ret = new Node(0, head)
+  let pre = ret
+  const cnt = right - left + 1
+
+  while (--left) {
+    pre = pre.next
+  }
+  pre.next = reverse(pre.next, cnt)
+  return ret.next
+}
+
+console.log(reverseBetween(linkedList.head, 2, 5).toString())

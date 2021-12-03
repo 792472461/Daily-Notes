@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { log, locale } = require('@sfs-cli/utils')
+const { log } = require('@sfs-cli/utils')
 const semver = require('semver')
 const colors = require('colors')
 const userHome = require('user-home')
@@ -26,11 +26,14 @@ function registerCommand () {
   program.version(packageConfig.version).usage('<command> [options]')
 
   program
-    .command('init')
-
-    .action(() => {
-      // loadCommand('init', '@vue/cli-init')
-      console.log('init')
+  .command('init [type]')
+  .description('项目初始化')
+  .option('--packagePath <packagePath>', '手动指定init包路径')
+  .option('--force', '覆盖当前路径文件（谨慎使用）')
+    .action(async (type, { packagePath, force }) => {
+      const packageName = '@imooc-cli/init'
+      const packageVersion = '1.0.0'
+      await execCommand({ packagePath, packageName, packageVersion }, { type, force })
     })
   program
     .option('--debug', '打开调试模式')
@@ -40,6 +43,10 @@ function registerCommand () {
     program.outputHelp()
     console.log()
   }
+}
+
+async function execCommand ({ packagePath, packageName, packageVersion }, extraOptions) {
+  console.log({ packagePath, packageName, packageVersion }, extraOptions)
 }
 
 async function prepare () {
@@ -58,8 +65,7 @@ async function checkGlobalUpdate () {
 }
 
 function checkPkgVersion () {
-  log.notice('当前脚手架版本号', packageConfig.version)
-  log.success(locale.welcome)
+  log.info('cli', packageConfig.version)
 }
 
 function checkNodeVersion () {
