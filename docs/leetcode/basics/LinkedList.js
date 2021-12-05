@@ -1,6 +1,6 @@
 class Node {
   constructor (e, next) {
-    this.val = e
+    this.e = e
     this.next = next
   }
 
@@ -8,7 +8,7 @@ class Node {
     let res = ''
     let cur = this
     while (cur !== null) {
-      res += cur.val + '->'
+      res += cur.e + '->'
       cur = cur.next
     }
     res += 'NULL'
@@ -70,7 +70,7 @@ class LinkedList {
     for (let i = 0; i < index; i++) {
       cur = cur.next
     }
-    return cur.val
+    return cur.e
   }
 
   // 获取第一个元素
@@ -90,21 +90,21 @@ class LinkedList {
     for (let i = 0; i < index && cur !== null; i++) {
       cur = cur.next
     }
-    cur.val = e
+    cur.e = e
   }
 
   // 查找链表中是否含有元素e
   contains (e) {
     let cur = this.dummyHead.next
     while (cur) {
-      if (cur.val === e) return true
+      if (cur.e === e) return true
       cur = cur.next
     }
     return false
   }
 
   // 删除链表中第index位置的元素
-  delete (index) {
+  delete (index = 0) {
     if (index < 0 || index > this.size) throw new Error('索引' + index + '出错')
     let prev = this.dummyHead
     for (let i = 0; i < index; i++) {
@@ -118,19 +118,19 @@ class LinkedList {
 
   // 删除第一个元素
   deleteFirst () {
-    this.delete(0)
+    return this.delete(0)
   }
 
   // 删除最后一个元素
   deleteLast () {
-    this.delete(this.size - 1)
+    return this.delete(this.size - 1)
   }
 
   toString () {
     let res = ''
     let cur = this.dummyHead.next
     while (cur !== null) {
-      res += cur.val + '->'
+      res += cur.e + '->'
       cur = cur.next
     }
     res += 'NULL'

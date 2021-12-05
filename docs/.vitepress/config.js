@@ -4,11 +4,11 @@ const path = require('path')
 const selfDestroyingSWVitePlugin = {
   name: 'generate-self-destroying-service-worker',
   buildStart() {
-    this.emitFile({
-      type: 'asset',
-      fileName: 'service-worker.js',
-      source: fs.readFileSync(path.join(__dirname, './self-destroying-service-worker.js'), 'utf-8')
-    })
+    // this.emitFile({
+    //   type: 'asset',
+    //   fileName: 'service-worker.js',
+    //   source: fs.readFileSync(path.join(__dirname, './self-destroying-service-worker.js'), 'utf-8')
+    // })
   }
 }
 
