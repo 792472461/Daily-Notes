@@ -22,8 +22,36 @@
 
 ## 进阶题
 
-### 手写Promise函数
+### 手写深合并
+```javascript
+function deepMergeObject(a, b) {
+  const rest = {}
+  Object.keys(b).forEach(key => {
+    if (key in a) {
+      rest[key] = deepMerge(a[key], b[key])
+    } else {
+      rest[key] = b
+    }
+  })
+}
 
+function deepMergeArray(a, b) {
+  return [...a, ...b]
+}
+
+function deepMerge(a, b) {
+  if (!a || !b) return a || b
+  if (typeof a !== typeof b) return b
+  if (Array.isArray(a) && Array.isArray(b)) return deepMergeArray(a, b)
+
+  if (typeof a === 'function') return b
+  if (typeof a === 'object') return deepMergeObject(a, b)
+  return b
+}
+
+```
+
+### 手写Promise函数
 ```javascript
 // promise的三种状态值
 const STATUS = {
