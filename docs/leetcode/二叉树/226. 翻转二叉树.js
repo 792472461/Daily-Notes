@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-const invertTree = function (root) {
+export const invertTree = function (root) {
   if (root === null) return null
   const right = invertTree(root.right)
   const left = invertTree(root.left)

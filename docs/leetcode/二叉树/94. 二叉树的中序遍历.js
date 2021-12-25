@@ -10,13 +10,13 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-const preorderTraversal = function (root) {
+export const inorderTraversal = function (root) {
   const dfs = (node, result) => {
     if (node === null) {
       return
     }
-    result.push(node.val)
     dfs(node.left, result)
+    result.push(node.val)
     dfs(node.right, result)
   }
   const result = []

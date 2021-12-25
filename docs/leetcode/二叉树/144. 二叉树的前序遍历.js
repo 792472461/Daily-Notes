@@ -8,19 +8,18 @@
  */
 /**
  * @param {TreeNode} root
- * @return {number[][]}
+ * @return {number[]}
  */
-const levelOrder = function (root) {
-  const q = new Array()
-  q.push(root)
-  while (q.length) {
-    const cur = q.shift()
-    console.log(cur.e)
-    if (cur.left !== null) {
-      q.push(cur.left)
+export const preorderTraversal = function (root) {
+  const dfs = (node, result) => {
+    if (node === null) {
+      return
     }
-    if (cur.right !== null) {
-      q.push(cur.right)
-    }
+    result.push(node.val)
+    dfs(node.left, result)
+    dfs(node.right, result)
   }
+  const result = []
+  dfs(root, result)
+  return result
 }
