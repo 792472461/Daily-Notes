@@ -3,7 +3,7 @@ const path = require('path')
 
 const selfDestroyingSWVitePlugin = {
   name: 'generate-self-destroying-service-worker',
-  buildStart() {
+  buildStart () {
     // this.emitFile({
     //   type: 'asset',
     //   fileName: 'service-worker.js',
@@ -27,16 +27,31 @@ module.exports = {
   },
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.png' }],
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['link', {
+      rel: 'icon',
+      href: '/favicon.png'
+    }],
+    ['meta', {
+      name: 'theme-color',
+      content: '#3eaf7c'
+    }],
+    ['meta', {
+      name: 'apple-mobile-web-app-capable',
+      content: 'yes'
+    }],
     [
       'meta',
-      { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }
+      {
+        name: 'apple-mobile-web-app-status-bar-style',
+        content: 'black'
+      }
     ],
     [
       'link',
-      { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }
+      {
+        rel: 'apple-touch-icon',
+        href: `/icons/apple-touch-icon-152x152.png`
+      }
     ],
     [
       'link',
@@ -53,7 +68,10 @@ module.exports = {
         content: '/icons/msapplication-icon-144x144.png'
       }
     ],
-    ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+    ['meta', {
+      name: 'msapplication-TileColor',
+      content: '#000000'
+    }]
   ],
 
   themeConfig: {
@@ -88,17 +106,35 @@ module.exports = {
           {
             text: '前端工程化',
             items: [
-              { text: '脚手架', link: '/project/cli/' },
-              { text: 'GUI', link: '/project/gui/' },
-              { text: '自动化发布', link: '/project/publish/' },
-              { text: '自动化测试', link: '/project/test/' }
+              {
+                text: '脚手架',
+                link: '/project/cli/'
+              },
+              {
+                text: 'GUI',
+                link: '/project/gui/'
+              },
+              {
+                text: '自动化发布',
+                link: '/project/publish/'
+              },
+              {
+                text: '自动化测试',
+                link: '/project/test/'
+              }
             ]
           },
           {
             text: 'Typescript',
             items: [
-              { text: 'Typescript基础', link: '/typescript/basics/index' },
-              { text: 'Typescript进阶', link: '/typescript/senior/index' }
+              {
+                text: 'Typescript基础',
+                link: '/typescript/basics/index'
+              },
+              {
+                text: 'Typescript进阶',
+                link: '/typescript/senior/index'
+              }
             ]
           },
           {
@@ -111,6 +147,36 @@ module.exports = {
           }
         ],
         sidebar: {
+          '/leetcode/': [
+            {
+              text: '栈',
+              link: '/leetcode/Stack/index'
+            },
+            {
+              text: '字符串',
+              link: '/leetcode/String/index'
+            },
+            {
+              text: '数组',
+              link: '/leetcode/Array/index'
+            },
+            {
+              text: '队列',
+              link: '/leetcode/Queue/index'
+            },
+            {
+              text: '链表',
+              link: '/leetcode/LikedList/index'
+            },
+            {
+              text: '排序算法',
+              link: '/leetcode/Sort/index'
+            },
+            {
+              text: '树',
+              link: '/leetcode/Tree/index'
+            },
+          ]
           // '/data-structure/': [
           //   {
           //     text: '栈',
