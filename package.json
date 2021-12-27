@@ -4,7 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "lint": "eslint --fix packages/**/*.js packages/**/bin/*",
+    "lint": "eslint packages/**/*.js docs/**/*.js",
+    "lint: fix": "eslint --fix packages/**/*.js docs/**/*.js",
     "docs": "vitepress dev docs",
     "docs:build": "vitepress build docs"
   },

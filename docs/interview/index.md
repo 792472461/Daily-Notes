@@ -23,7 +23,7 @@
 3. 关于 defer，此图未尽之处在于它是按照加载顺序执行脚本的，这一点要善加利用
 4. async 的脚本并不保证能按照它们出现的次序执行，async 属性的目的是告诉浏览器，不必等脚本下载和执行完后再加载页面，同样也不必等到该异步脚本下载和执行后再加载其他脚本。正因为如此，异步脚本不应该在加载期间修改
    DOM。异步脚本保证会在页面的 load 事件前执行，但可能会在 DOMContentLoaded（参见第 17 章）之前或之后
-5. 仔细想想，async 对于应用脚本的用处不大，因为它完全不考虑依赖（哪怕是最低级的顺序执行），不过它对于那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的，最典型的例子：Google Analytics
+5. 仔细想想，async 对于应用脚本的用处不大，因为它完全不考虑依赖（哪怕是最低级的顺序执行），不过它对那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的，最典型的例子：Google Analytics
    :::
 
 ### 浅拷贝、深拷贝
@@ -119,7 +119,7 @@ function deepMerge (a, b) {
 ### Promise.finally原理
 
 ```javascript
-Promise.prototype.finally = function (callback) {
+Promise.prototype.finally = function(callback) {
   return this.then((data) => {
     // 让函数执行 内部会调用方法，如果方法是promise需要等待他完成
     return Promise.resolve(callback()).then(() => data)
@@ -134,7 +134,7 @@ Promise.prototype.finally = function (callback) {
 ### Promise.race原理
 
 ```javascript
-Promise.race = function (promises) {
+Promise.race = function(promises) {
   return new Promise((resolve, reject) => {
     for (let i = 0; i < promises.length; i++) {
       let currentVal = promises[i];
@@ -152,9 +152,9 @@ Promise.race = function (promises) {
 
 ```javascript
 function promisify (fn) {
-  return function (...args) {
+  return function(...args) {
     return new Promise((resolve, reject) => {
-      fn(...args, function (err, data) {
+      fn(...args, function(err, data) {
         if (err) reject();
         resolve(data);
       })
@@ -197,13 +197,13 @@ function resolvePromise (x, promise2, resolve, reject) {
       if (typeof then === "function") {
         then.call(
           x,
-          function (y) {
+          function(y) {
             if (called) return;
             called = true;
             // 递归解析
             resolvePromise(y, promise2, resolve, reject);
           },
-          function (r) {
+          function(r) {
             if (called) return;
             called = true;
             reject(r);
@@ -353,3 +353,30 @@ Promise.defer = Promise.deferred = () => {
 
 module.exports = Promise;
 ```
+
+=======
+
+```
+
+## 好文
+### 面试相关
+- [前端面试真题，会80%直接进大厂](https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&table=tblEnSV2PNAajtWE&view=vewJHSwJVd)
+
+### 算法相关
+- [labuladong 的算法小抄](https://labuladong.gitee.io/algo/)
+- [LeetCode学习](https://github.com/azl397985856/leetcode)
+- [力扣加加](https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/)
+- [CodeTop](https://codetop.cc/home)
+
+### 杂谈
+- [if 我是前端团队 Leader，怎么制定前端协作规范](https://juejin.cn/post/6844903897610321934)
+- [前端常用插件、工具类库汇总](https://juejin.cn/post/6844903683411410951)
+- [茂茂物语](https://notes.fe-mm.com/)
+- [印记中文](https://docschina.org/)
+- [深入理解Typescript](https://jkchao.github.io/typescript-book-chinese/)
+- [vue-cli源码解析](https://llccing.github.io/vue-learn-share/)
+- [vue3源码分析](https://diy4869.github.io/vue-next-analysis/)
+- [react技术揭秘](https://react.iamkasong.com/me.html)
+- [美团技术团队](https://tech.meituan.com/)
+- [babel用户手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md)
+- [nodejs源码解析](https://github.com/theanarkh/understand-nodejs)

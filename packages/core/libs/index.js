@@ -11,7 +11,6 @@ const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require('./const')
 module.exports = cli
 
 let args
-let config
 
 async function cli () {
   try {
@@ -26,18 +25,18 @@ function registerCommand () {
   program.version(packageConfig.version).usage('<command> [options]')
 
   program
-  .command('init [type]')
-  .description('项目初始化')
-  .option('--packagePath <packagePath>', '手动指定init包路径')
-  .option('--force', '覆盖当前路径文件（谨慎使用）')
+    .command('init [type]')
+    .description('项目初始化')
+    .option('--force', '覆盖当前路径文件（谨慎使用）')
     .action(async (type, { packagePath, force }) => {
-      const packageName = '@imooc-cli/init'
+      const packageName = '@sfs-cli/init'
       const packageVersion = '1.0.0'
-      await execCommand({ packagePath, packageName, packageVersion }, { type, force })
+      await execCommand(
+        { packagePath, packageName, packageVersion },
+        { type, force }
+      )
     })
-  program
-    .option('--debug', '打开调试模式')
-    .parse(process.argv)
+  program.option('--debug', '打开调试模式').parse(process.argv)
 
   if (args._.length < 1) {
     program.outputHelp()
@@ -45,7 +44,10 @@ function registerCommand () {
   }
 }
 
-async function execCommand ({ packagePath, packageName, packageVersion }, extraOptions) {
+async function execCommand (
+  { packagePath, packageName, packageVersion },
+  extraOptions
+) {
   console.log({ packagePath, packageName, packageVersion }, extraOptions)
 }
 
@@ -75,7 +77,9 @@ function checkNodeVersion () {
   const lowestNodeVersion = LOWEST_NODE_VERSION
   // 对比版本号
   if (!semver.gte(currentVersion, lowestNodeVersion)) {
-    throw new Error(colors.red(`sfs-cli需要安装${lowestNodeVersion}以上版本的 Node.js`))
+    throw new Error(
+      colors.red(`sfs-cli需要安装${lowestNodeVersion}以上版本的 Node.js`)
+    )
   }
 }
 
@@ -113,7 +117,7 @@ function checkEnv () {
   dotenv.config({
     path: path.resolve(userHome, '.env')
   })
-  config = createCliConfig() // 准备基础配置
+  const config = createCliConfig() // 准备基础配置
   log.verbose('环境变量', config)
 }
 
