@@ -1,7 +1,5 @@
 # leetcode刷题
 
-1.
-
 1. 栈[/leetcode/Stack/index.html]
 2. 字符串[/leetcode/String/index.html]
 3. 队列[/leetcode/Queue/index.html]
