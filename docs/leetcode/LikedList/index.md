@@ -319,55 +319,49 @@ export const mergeTwoLists = function (l1, l2) {
 ### 24.两两交换链表中的节点
 
 ```javascript
-/*
- * @lc app=leetcode.cn id=24 lang=javascript
- *
- * [24] 两两交换链表中的节点
- */
-
-function ListNode (val, next) {
-  this.val = (val === undefined ? 0 : val)
-  this.next = (next === undefined ? null : next)
-}
-
 /**
- * @param {ListNode} head
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
  * @return {ListNode}
  */
-export const swapPairs = function (head) {
-  if (head === null) return head
-  // 创建虚拟头节点
-  const ret = new ListNode(-1, head)
-
-  let temp = ret
-  while (temp.next && temp.next.next) {
-    const pre = temp.next
-    const cur = temp.next.next
-    pre.next = cur.next
-    cur.next = pre
-    temp.next = cur
-    temp = pre
+export const mergeTwoLists = function (l1, l2) {
+  if (l1 === null) {
+    return l2
   }
-  return ret.next
+  if (l2 === null) {
+    return l1
+  }
+  if (l1.val < l2.val) {
+    l1.next = mergeTwoLists(l1.next, l2)
+    return l1
+  } else {
+    l2.next = mergeTwoLists(l1, l2.next)
+    return l2
+  }
 }
-// @lc code=end
 
 ```
 
 ### 25.k个一组翻转链表
 
 ```javascript
-/*
- * @lc app=leetcode.cn id=25 lang=javascript
- *
- * [25] K 个一组翻转链表
- */
+//*
+* @lc app=leetcode.cn id=25 lang=javascript
+  *
+  * [25] K 个一组翻转链表
+*/
 
 // @lc code=start
-
 function ListNode (val, next) {
-  this.val = (val === undefined ? 0 : val)
-  this.next = (next === undefined ? null : next)
+  this.val = val === null ? 0 : val
+  this.next = next === null ? null : next
 }
 
 /**
@@ -376,40 +370,49 @@ function ListNode (val, next) {
  * @return {ListNode}
  */
 export const reverseKGroup = function (head, k) {
-  if (!head) return null
-  const ret = new ListNode(0, head)
-  let pre = ret
-  do {
-    pre.next = reverse(pre.next, k)
+  const protect = new ListNode(0, head)
+  let last = protect
+  // 分组遍历
+  while (head !== null) {
+    // 1. 分组(往后找k-1步，找到一组)
+    // 一组的开头head结尾end
+    const end = getEnd(head, k)
+    if (end === null) break
 
-    for (let i = 0; i < k && pre; i++) {
-      pre = pre.next
-    }
-    if (!pre) {
-      return ret.next
-    }
-  } while (1)
+    const nextGroupHead = end.next
+
+    // 2. 一组内部(head到end之间)要反转
+    reverseList(head, nextGroupHead)
+
+    // 3. 更新前一组和后一组的边
+    last.next = end
+    head.next = nextGroupHead
+
+    last = head
+    head = nextGroupHead
+  }
+  return protect.next
 }
 
-function reverse (head, n) {
-  let pre = head
-  let cur = head
-  let con = n
-  while (--n && pre) {
-    pre = pre.next
+function getEnd (head, k) {
+  while (head !== null) {
+    k--
+    if (k === 0) return head
+    head = head.next
   }
-  if (!pre) return head
+  return null
+}
 
-  pre = null
-  while (con--) {
-    const next = cur.next
-    cur.next = pre
-
-    pre = cur
-    cur = next
+function reverseList (head, stop) {
+  let last = head
+  head = head.next
+  while (head !== stop) {
+    const nextHead = head.next
+    head.next = last
+    last = head
+    head = nextHead
   }
-  head.next = cur
-  return pre
+  return last
 }
 
 // @lc code=end
