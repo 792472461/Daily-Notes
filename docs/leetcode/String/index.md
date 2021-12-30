@@ -131,6 +131,61 @@ export const isValid = function (s) {
   }
 ```
 
+### 49. 字母的异位词
+
+```javascript
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+const groupAnagrams = function (strs) {
+    const map = new Map()
+    for (const str of strs) {
+      // 1. 把字符串分割成数组
+      const array = Array.from(str)
+      // 2. 进行排序，这样异位词的key一定一样的
+      array.sort()
+      const key = array.toString()
+      // 判断是否有，创建数组
+      const list = map.get(key) ? map.get(key) : []
+      // 往对应的数组里面push
+      list.push(str)
+      // 存储数据
+      map.set(key, list)
+    }
+    // map转数组
+    return Array.from(map.values())
+  }
+
+console.log(groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']))
+```
+
+### 242. 有效的字母异位词
+
+```javascript
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+const isAnagram = function (s, t) {
+    if (s.length !== t.length) return false
+    const hashMap = new Map()
+    for (let i = 0; i < s.length; i++) {
+      hashMap.set(s[i], (hashMap.get(s[i]) || 0) + 1)
+      hashMap.set(t[i], (hashMap.get(t[i]) || 0) - 1)
+    }
+    for (const item of hashMap) {
+      const [, value] = item
+      if (value !== 0) return false
+    }
+    return true
+  }
+
+console.log(isAnagram('rat', 'car'))
+
+```
+
 ### 剑指Offer 05. 替换空格
 
 ```javascript
@@ -161,17 +216,17 @@ export const replaceSpace = function (s) {
  * @return {number}
  */
 export const firstUniqChar = function (s) {
-  const hm = new Map()
-  for (let i = 0; i < s.length; i++) {
-    const cur = hm.get(s.charAt(i)) || 0
-    hm.set(s.charAt(i), cur + 1)
-  }
-  for (let i = 0; i < s.length; i++) {
-    if (hm.get(s.charAt(i)) === 1) {
-      return i
+    const hm = new Map()
+    for (let i = 0; i < s.length; i++) {
+      const cur = hm.get(s.charAt(i)) || 0
+      hm.set(s.charAt(i), cur + 1)
     }
+    for (let i = 0; i < s.length; i++) {
+      if (hm.get(s.charAt(i)) === 1) {
+        return i
+      }
+    }
+    return -1
   }
-  return -1
-}
 
 ```
