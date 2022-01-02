@@ -1,9 +1,3 @@
-/*
- * @lc app=leetcode.cn id=25 lang=javascript
- *
- * [25] K 个一组翻转链表
- */
-
 // @lc code=start
 function ListNode (val, next) {
   this.val = val === null ? 0 : val
