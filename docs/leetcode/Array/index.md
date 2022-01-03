@@ -7,7 +7,7 @@
  * @param {number[]} height
  * @return {number}
  */
-export const maxArea = function(height) {
+export const maxArea = function (height) {
     let max = 0
 
     for (let i = 0, j = height.length - 1; i < j;) {
@@ -31,22 +31,23 @@ export const maxArea = function(height) {
 ```
 
 ### 26.删除有序数组中的重复项
+
 ```javascript
 /**
  * @param {number[]} nums
  * @return {number}
  */
 export const removeDuplicates = function (nums) {
-  let n = 0
-  for (let i = 0; i < nums.length; i++) {
-    // 只要循环过程中,nums[i]和前面一位不一样，就存下来,n++
-    if (i === 0 || nums[i] !== nums[i - 1]) {
-      nums[n] = nums[i]
-      n++
+    let n = 0
+    for (let i = 0; i < nums.length; i++) {
+      // 只要循环过程中,nums[i]和前面一位不一样，就存下来,n++
+      if (i === 0 || nums[i] !== nums[i - 1]) {
+        nums[n] = nums[i]
+        n++
+      }
     }
+    return n
   }
-  return n
-}
 ```
 
 ### 35.搜索插入的位置
@@ -60,7 +61,7 @@ export const removeDuplicates = function (nums) {
  * @param {number} target
  * @return {number}
  */
-export const searchInsert = function(nums, target) {
+export const searchInsert = function (nums, target) {
   if (!nums.length) return 0
   const middle = Math.floor(nums.length / 2)
   if (nums[middle] === target) return middle
@@ -83,6 +84,36 @@ export const searchInsert = function(nums, target) {
 
 ```
 
+### 51.最大子数数组和
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const maxSubArray = function (nums) {
+    let ans = -Infinity // 保证是最小值
+    const n = nums.length
+    const s = new Array(n + 1).fill(0)
+    const preMin = new Array(n + 1).fill(0)
+    s[0] = 0
+    for (let i = 1; i <= n; i++) {
+      s[i] = s[i - 1] + nums[i - 1]
+    }
+    preMin[0] = s[0]
+    for (let i = 1; i <= n; i++) {
+      preMin[i] = Math.min(preMin[i - 1], s[i])
+    }
+    for (let i = 1; i <= n; i++) {
+      ans = Math.max(ans, s[i] - preMin[i - 1])
+    }
+    return ans
+  }
+
+console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])) // 6
+console.log(maxSubArray([5, 4, -1, 7, 8])) // 23
+```
+
 ### 75.颜色分类
 
 ```javascript
@@ -90,7 +121,7 @@ export const searchInsert = function(nums, target) {
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-const sortColors = function(nums) {
+const sortColors = function (nums) {
     /**
      * 数组辅助函数，调换位置
      * @param {number[]} arr 原数组
@@ -132,7 +163,7 @@ sortColors([2, 0, 2, 1, 1, 0]) // [0,0,1,1,2,2]
  * @param {number} target
  * @return {number[]}
  */
-export const twoSum = function(numbers, target) {
+export const twoSum = function (numbers, target) {
     let i = 0
     let j = numbers.length - 1
     while (i < numbers.length) {
@@ -155,7 +186,7 @@ export const twoSum = function(numbers, target) {
  * @param {number} k
  * @return {number}
  */
-export const findKthLargest = function(nums, k) {
+export const findKthLargest = function (nums, k) {
     /**
      * 数组辅助函数，调换位置
      * @param {number[]} arr 原数组
@@ -181,9 +212,13 @@ export const findKthLargest = function(nums, k) {
       let i = l + 1
       let j = r
       while (true) {
-        while (i <= j && arr[i] < arr[l]) { i++ }
+        while (i <= j && arr[i] < arr[l]) {
+          i++
+        }
 
-        while (j >= i && arr[j] > arr[l]) { j-- }
+        while (j >= i && arr[j] > arr[l]) {
+          j--
+        }
 
         if (i >= j) break
         swap(arr, i, j)
@@ -232,12 +267,12 @@ export const findKthLargest = function(nums, k) {
  * @param {function} isBadVersion()
  * @return {function}
  */
-export const solution = function(isBadVersion) {
+export const solution = function (isBadVersion) {
   /**
    * @param {integer} n Total versions
    * @return {integer} The first bad version
    */
-  return function(n) {
+  return function (n) {
     let l = 1
     let r = n
     while (l < r) {
@@ -261,7 +296,7 @@ export const solution = function(isBadVersion) {
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-export const moveZeroes = function(nums) {
+export const moveZeroes = function (nums) {
     let n = 0
     for (let i = 0; i < nums.length; i++) {
       if (nums[i] !== 0) {
@@ -284,7 +319,7 @@ export const moveZeroes = function(nums) {
  * @param {number} target
  * @return {number}
  */
-export const search = function(nums, target) {
+export const search = function (nums, target) {
     /**
      * @param {*} nums
      * @param {number} l
@@ -302,7 +337,7 @@ export const search = function(nums, target) {
   }
 
 // 非递归实现
-const search2 = function(nums, target) {
+const search2 = function (nums, target) {
   let l = 0
   let r = nums.length - 1
   // 要搜索的范围
@@ -326,7 +361,7 @@ console.log(search2([-1, 0, 3, 5, 9, 12], 9))
  * @param {number[]} nums
  * @return {number[]}
  */
-export const sortArray = function(nums) {
+export const sortArray = function (nums) {
     /**
      * 数组辅助函数，调换位置
      * @param {number[]} arr 原数组
@@ -385,7 +420,7 @@ export const sortArray = function(nums) {
  * @param {number[]} nums
  * @return {number[]}
  */
-export const sortedSquares = function(nums) {
+export const sortedSquares = function (nums) {
     const res = []
     let i = 0
     let j = nums.length - 1
@@ -413,9 +448,11 @@ export const sortedSquares = function(nums) {
  * @param {string} s
  * @return {number}
  */
-const balancedString = function(s) {
+const balancedString = function (s) {
     const n = s.length
-    const num = new Array(n + 1).fill().map(() => { return new Array(4).fill() })
+    const num = new Array(n + 1).fill().map(() => {
+      return new Array(4).fill()
+    })
     for (let i = 1; i <= n; i++) {
       for (let j = 0; j < 4; j++) {
         num[i][j] = num[i - 1][j]
@@ -440,6 +477,39 @@ const balancedString = function(s) {
   }
 
 console.log(balancedString('QWER'))
+
+```
+
+### 1248.统计[优美子数组]
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+const numberOfSubarrays = function (nums, k) {
+    const n = nums.length
+    const s = new Array(n + 1).fill(0)
+    s[0] = 0
+    for (let i = 1; i <= n; i++) {
+      s[i] = s[i - 1] + nums[i - 1] % 2
+    }
+    const count = new Array(n + 1).fill(0)
+    let ans = 0
+    count[s[0]]++
+    for (let i = 1; i <= n; i++) {
+      if (s[i] - k >= 0) {
+        ans += count[s[i] - k]
+      }
+      count[s[i]]++
+    }
+    return ans
+  }
+
+console.log(numberOfSubarrays([1, 1, 2, 1, 1], 3))
+console.log(numberOfSubarrays([2, 4, 6], 3))
+console.log(numberOfSubarrays([2, 2, 2, 1, 2, 2, 1, 2, 2, 2], 2))
 
 ```
 
@@ -510,7 +580,7 @@ const selectK = (arr, l, r, k) => {
  * @param {number} k
  * @return {number[]}
  */
-export const getLeastNumbers = function(data, k) {
+export const getLeastNumbers = function (data, k) {
   selectK(data, 0, data.length - 1, k - 1)
   return data.slice(0, k)
 }
@@ -525,7 +595,7 @@ export const getLeastNumbers = function(data, k) {
  * @param {number[]} nums
  * @return {number}
  */
-export const reversePairs = function(nums) {
+export const reversePairs = function (nums) {
     return mergeSort(nums)
   }
 
@@ -584,7 +654,9 @@ const mergeSort = (arrData) => {
     const mid = l + Math.floor((r - l) / 2)
     rest += sort(arr, l, mid, temp)
     rest += sort(arr, mid + 1, r, temp)
-    if (arr[mid] > arr[mid + 1]) { rest += merge(arr, l, mid, r, temp) }
+    if (arr[mid] > arr[mid + 1]) {
+      rest += merge(arr, l, mid, r, temp)
+    }
     return rest
   }
   const temp = [...arrData]
@@ -600,7 +672,7 @@ const mergeSort = (arrData) => {
  * @param {number[]} nums
  * @return {number}
  */
-const lengthOfLIS = function(nums) {
+const lengthOfLIS = function (nums) {
     const n = nums.length
     if (n <= 1) return n
     const dp = [null, nums[0]]
