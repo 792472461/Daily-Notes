@@ -547,7 +547,83 @@ export const hasPathSum = function (root, targetSum) {
 
 ```
 
-### 114.二叉树的前序遍历
+### 114.二叉树展开为链表
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+const flatten = function (root) {
+  // 递归终止条件
+  if (root == null) return
+
+  flatten(root.left)
+  flatten(root.right)
+
+  // 1、左右子树已经被拉平成一条链表
+  const left = root.left
+  const right = root.right
+
+  // 2、将左子树作为右子树
+  root.left = null
+  root.right = left
+
+  // 3、将原先的右子树接到当前右子树的末端
+  let p = root
+  while (p.right != null) {
+    p = p.right
+  }
+  p.right = right
+}
+
+```
+
+### 116. 填充每个节点的下一个右侧节点指针
+
+```javascript
+/**
+ * // Definition for a Node.
+ * function Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+const connect = function (root) {
+  if (root == null) return null
+  connectTwoNode(root.left, root.right)
+  return root
+}
+
+function connectTwoNode (node1, node2) {
+  if (node1 === null || node2 === null) return
+  /** ** 前序遍历位置 ****/
+  // 将传入的两个节点连接
+  node1.next = node2
+  connectTwoNode(node1.left, node1.right)
+  connectTwoNode(node2.left, node2.right)
+  // 连接跨越父节点的两个子节点
+  connectTwoNode(node1.right, node2.left)
+}
+
+```
+
+### 144.二叉树的前序遍历
 
 ```javascript
 /**
@@ -653,6 +729,44 @@ export const invertTree = function (root) {
   root.left = right
   root.right = left
   return root
+}
+
+```
+
+### 230. 二叉搜索树中第k小的元素
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+const kthSmallest = function (root, k) {
+  let rank = 0
+  let res
+
+  // bst中中序遍历是升序
+  function traverse (node) {
+    if (node === null) return
+    traverse(node.left)
+    rank++
+    if (rank === k) {
+      res = node.val
+      return
+    }
+    traverse(node.right)
+  }
+
+  traverse(root)
+  return res
 }
 
 ```
