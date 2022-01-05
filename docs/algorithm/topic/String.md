@@ -1,6 +1,6 @@
 # 字符串经典问题
 
-### 3.无重复字符的最长子串
+## 3.无重复字符的最长子串
 
 ```javascript
 /**
@@ -35,7 +35,7 @@ export const lengthOfLongestSubstring = function (s) {
   }
 ```
 
-### 8.字符串转换整数
+## 8.字符串转换整数
 
 ```javascript
 /**
@@ -82,7 +82,7 @@ export const myAtoi = function (s) {
   }
 ```
 
-### 9.回文数
+## 9.回文数
 
 ```javascript
 /**
@@ -106,7 +106,7 @@ console.log(isPalindrome(121))
 
 ```
 
-### 20.有效的括号
+## 20.有效的括号
 
 ```javascript
 /**
@@ -131,7 +131,7 @@ export const isValid = function (s) {
   }
 ```
 
-### 30.串联所有单词的子串
+## 30.串联所有单词的子串
 
 ```javascript
 /**
@@ -193,7 +193,7 @@ console.log(findSubstring('wordgoodgoodgoodbestword', ['word', 'good', 'best', '
 
 ```
 
-### 49. 字母的异位词
+## 49. 字母的异位词
 
 ```javascript
 /**
@@ -222,7 +222,7 @@ const groupAnagrams = function (strs) {
 console.log(groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']))
 ```
 
-### 242. 有效的字母异位词
+## 242. 有效的字母异位词
 
 ```javascript
 /**
@@ -248,7 +248,7 @@ console.log(isAnagram('rat', 'car'))
 
 ```
 
-### 剑指Offer 05. 替换空格
+## 剑指Offer 05. 替换空格
 
 ```javascript
 /**
@@ -270,7 +270,7 @@ export const replaceSpace = function (s) {
 
 ```
 
-### 387.字符串中第一个唯一字符
+## 387.字符串中第一个唯一字符
 
 ```javascript
 /**

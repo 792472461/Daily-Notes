@@ -9,69 +9,73 @@ const selfDestroyingSWVitePlugin = {
     //   fileName: 'service-worker.js',
     //   source: fs.readFileSync(path.join(__dirname, './self-destroying-service-worker.js'), 'utf-8')
     // })
-  }
+  },
 }
 
 module.exports = {
   vite: {
     // to destroy the service worker used by the previous vuepress build
-    plugins: [selfDestroyingSWVitePlugin]
+    plugins: [selfDestroyingSWVitePlugin],
   },
 
   locales: {
     '/': {
       lang: 'zh-CN',
       title: '一个不正经的博客',
-      description: 'By Songfengshuai'
+      description: 'By Songfengshuai',
     },
   },
 
   head: [
-    ['link', {
+    [
+      'link', {
       rel: 'icon',
-      href: '/favicon.png'
+      href: '/favicon.png',
     }],
-    ['meta', {
+    [
+      'meta', {
       name: 'theme-color',
-      content: '#3eaf7c'
+      content: '#3eaf7c',
     }],
-    ['meta', {
+    [
+      'meta', {
       name: 'apple-mobile-web-app-capable',
-      content: 'yes'
+      content: 'yes',
     }],
     [
       'meta',
       {
         name: 'apple-mobile-web-app-status-bar-style',
-        content: 'black'
-      }
+        content: 'black',
+      },
     ],
     [
       'link',
       {
         rel: 'apple-touch-icon',
-        href: `/icons/apple-touch-icon-152x152.png`
-      }
+        href: `/icons/apple-touch-icon-152x152.png`,
+      },
     ],
     [
       'link',
       {
         rel: 'mask-icon',
         href: '/icons/safari-pinned-tab.svg',
-        color: '#3eaf7c'
-      }
+        color: '#3eaf7c',
+      },
     ],
     [
       'meta',
       {
         name: 'msapplication-TileImage',
-        content: '/icons/msapplication-icon-144x144.png'
-      }
+        content: '/icons/msapplication-icon-144x144.png',
+      },
     ],
-    ['meta', {
+    [
+      'meta', {
       name: 'msapplication-TileColor',
-      content: '#000000'
-    }]
+      content: '#000000',
+    }],
   ],
 
   themeConfig: {
@@ -92,136 +96,122 @@ module.exports = {
           },
           {
             text: '数据结构与算法',
-            items: [
-              {
-                text: '数据结构',
-                link: '/data-structure/'
-              },
-              {
-                text: 'leetcode',
-                link: '/leetcode/'
-              }
-            ]
+            link: '/algorithm/',
           },
           {
             text: '前端工程化',
             items: [
               {
                 text: '脚手架',
-                link: '/project/cli/'
+                link: '/project/cli/',
               },
               {
                 text: 'GUI',
-                link: '/project/gui/'
+                link: '/project/gui/',
               },
               {
                 text: '自动化发布',
-                link: '/project/publish/'
+                link: '/project/publish/',
               },
               {
                 text: '自动化测试',
-                link: '/project/test/'
-              }
-            ]
+                link: '/project/test/',
+              },
+            ],
           },
           {
             text: 'Typescript',
             items: [
               {
                 text: 'Typescript基础',
-                link: '/typescript/basics/index'
+                link: '/typescript/basics/index',
               },
               {
                 text: 'Typescript进阶',
-                link: '/typescript/senior/index'
-              }
-            ]
+                link: '/typescript/senior/index',
+              },
+            ],
           },
           {
             text: 'Vue源码解析',
-            link: '/vue-analysis/'
+            link: '/vue-analysis/',
           },
           {
             text: 'React源码解析',
-            link: '/react-analysis/'
-          }
+            link: '/react-analysis/',
+          },
         ],
         sidebar: {
-          '/leetcode/': [
+          '/algorithm/': [
             {
-              text: '栈',
-              link: '/leetcode/Stack/index'
+              text: '数据结构',
+              collapsable: false,
+              children: [
+                {
+                  text: '栈',
+                  link: '/algorithm/data-structure/Stack',
+                },
+                {
+                  text: '队列',
+                  link: '/algorithm/data-structure/Queue',
+                },
+                {
+                  text: '链表',
+                  link: '/algorithm/data-structure/LinkedList',
+                },
+                {
+                  text: '树',
+                  link: '/algorithm/data-structure/Tree',
+                },
+                {
+                  text: '堆',
+                  link: '/algorithm/data-structure/Heap',
+                },
+                {
+                  text: '哈希表',
+                  link: '/algorithm/data-structure/HashMap',
+                },
+              ]
             },
             {
-              text: '字符串',
-              link: '/leetcode/String/index'
+              text: '刷题',
+              collapsable: false,
+              children: [
+                {
+                  text: '栈',
+                  link: '/algorithm/topic/Stack',
+                },
+                {
+                  text: '字符串',
+                  link: '/algorithm/topic/String',
+                },
+                {
+                  text: '数组',
+                  link: '/algorithm/topic/Array',
+                },
+                {
+                  text: '队列',
+                  link: '/algorithm/topic/Queue',
+                },
+                {
+                  text: '链表',
+                  link: '/algorithm/topic/LinkedList',
+                },
+                {
+                  text: '排序算法',
+                  link: '/algorithm/topic/Sort',
+                },
+                {
+                  text: '树',
+                  link: '/algorithm/topic/Tree',
+                }],
             },
-            {
-              text: '数组',
-              link: '/leetcode/Array/index'
-            },
-            {
-              text: '队列',
-              link: '/leetcode/Queue/index'
-            },
-            {
-              text: '链表',
-              link: '/leetcode/LikedList/index'
-            },
-            {
-              text: '排序算法',
-              link: '/leetcode/Sort/index'
-            },
-            {
-              text: '树',
-              link: '/leetcode/Tree/index'
-            },
-          ]
-          // '/data-structure/': [
-          //   {
-          //     text: '栈',
-          //     link: '/data-structure/stack/index',
-          //   },
-          //   {
-          //     text: '队列',
-          //     link: '/data-structure/queue/index',
-          //   },
-          //   {
-          //     text: '链表',
-          //     link: '/data-structure/linked-list/index',
-          //   },
-          //   {
-          //     text: '树',
-          //     link: '/tree',
-          //     children: [
-          //       {
-          //         text: '二分搜索树',
-          //         link: '/data-structure/tree/bst'
-          //       },
-          //       {
-          //         text: '线段树'
-          //       },
-          //       {
-          //         text: 'AVL树',
-          //       },
-          //       {
-          //         text: '红黑树',
-          //       }
-          //     ]
-          //   },
-          //   {
-          //     text: '堆',
-          //     link: '/data-structure/heap/index',
-          //   },
-          //   {
-          //     text: '哈希表',
-          //     link: '/data-structure/hash-map/index',
-          //   },
-          // ],
 
-        }
+          ],
+
+        },
       },
 
-    }
+    },
   },
 }

@@ -1,6 +1,6 @@
 # 栈经典问题
 
-### 20.有效的括号
+## 20.有效的括号
 
 ```javascript
 /**
@@ -30,7 +30,7 @@ const isValid = function (s) {
 console.log(isValid('()[]{}'))
 ```
 
-### 145.二叉树的后续遍历
+## 145.二叉树的后续遍历
 
 ```javascript
 /**
@@ -61,7 +61,7 @@ const postorderTraversal = function (root) {
 console.log(postorderTraversal([1, null, 2, 3]))
 ```
 
-### 150.逆波兰表达式求值
+## 150.逆波兰表达式求值
 
 ```javascript
 /**
@@ -107,7 +107,7 @@ console.log(evalRPN(['4', '13', '5', '/', '+'])) // (4 + (13 / 5)) = 6
 console.log(evalRPN(['10', '6', '9', '3', '+', '-11', '*', '/', '*', '17', '+', '5', '+'])) // ((10 * (6 / ((9 + 3) * -11))) + 17) + 5 = 22
 ```
 
-### 155.最小栈
+## 155.最小栈
 
 ```javascript
 const MinStack = function () {
@@ -170,7 +170,7 @@ console.log(minStack.top())
 console.log(minStack.getMin())
 ```
 
-### 331.验证二叉树的前序序列化
+## 331.验证二叉树的前序序列化
 
 ```javascript
 /**
@@ -208,7 +208,7 @@ console.log(isValidSerialization('9,3,4,#,#,1,#,#,2,#,6,#,#'))
 
 ```
 
-### 682.棒球比赛
+## 682.棒球比赛
 
 ```javascript
 /**
@@ -244,7 +244,7 @@ console.log(calPoints(['5', '-2', '4', 'C', 'D', '9', '+', '+'])) // 27
 
 ```
 
-### 772.基本计算器Ⅲ
+## 772.基本计算器Ⅲ
 
 ```javascript
 /**
@@ -355,7 +355,7 @@ console.log(calculate('(2+6*3+5-(3*14/7+2)*5)+3')) // -12
 console.log(calculate('-2+1')) // -1
 ```
 
-### 844.比较含退格的字符串
+## 844.比较含退格的字符串
 
 ```javascript
 /**
@@ -386,7 +386,7 @@ console.log(backspaceCompare('ab#c', 'ad#c')) // S 和 T 都会变成 “ac”�
 
 ```
 
-### 946.验证栈序列
+## 946.验证栈序列
 
 ```javascript
 /**
@@ -411,7 +411,7 @@ console.log(validateStackSequences([1, 2, 3, 4, 5], [4, 5, 3, 2, 1]))
 console.log(validateStackSequences([1, 2, 3, 4, 5], [4, 3, 5, 1, 2]))
 ```
 
-### 1021.删除最外层的括号
+## 1021.删除最外层的括号
 
 ```javascript
 /**
@@ -432,7 +432,7 @@ console.log(removeOuterParentheses('(()())(())'))
 
 ```
 
-### 1249.移除无效的括号
+## 1249.移除无效的括号
 
 ```javascript
 /**
@@ -465,4 +465,4 @@ console.log(minRemoveToMakeValid('lee(t(c)o)de)'))
 
 ```
 
-###         
+##         

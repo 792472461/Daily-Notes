@@ -1,6 +1,6 @@
 # 数组
 
-### 11.盛水最多的容器
+## 11.盛水最多的容器
 
 ```javascript
 /**
@@ -30,7 +30,7 @@ export const maxArea = function (height) {
 
 ```
 
-### 26.删除有序数组中的重复项
+## 26.删除有序数组中的重复项
 
 ```javascript
 /**
@@ -50,7 +50,7 @@ export const removeDuplicates = function (nums) {
   }
 ```
 
-### 35.搜索插入的位置
+## 35.搜索插入的位置
 
 ```javascript
 // 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
@@ -84,7 +84,7 @@ export const searchInsert = function (nums, target) {
 
 ```
 
-### 51.最大子数数组和
+## 51.最大子数数组和
 
 ```javascript
 /**
@@ -114,7 +114,7 @@ console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])) // 6
 console.log(maxSubArray([5, 4, -1, 7, 8])) // 23
 ```
 
-### 75.颜色分类
+## 75.颜色分类
 
 ```javascript
 /**
@@ -155,7 +155,7 @@ sortColors([2, 0, 2, 1, 1, 0]) // [0,0,1,1,2,2]
 
 ```
 
-### 167.两数之和 II - 输入有序数组
+## 167.两数之和 II - 输入有序数组
 
 ```javascript
 /**
@@ -178,7 +178,7 @@ export const twoSum = function (numbers, target) {
 
 ```
 
-### 215.数组中的第K个最大元素
+## 215.数组中的第K个最大元素
 
 ```javascript
 /**
@@ -250,7 +250,7 @@ export const findKthLargest = function (nums, k) {
 
 ```
 
-### 278.第一个错误的版本
+## 278.第一个错误的版本
 
 ```javascript
 /**
@@ -289,7 +289,7 @@ export const solution = function (isBadVersion) {
 
 ```
 
-### 283.移动零
+## 283.移动零
 
 ```javascript
 /**
@@ -311,7 +311,7 @@ export const moveZeroes = function (nums) {
 
 ```
 
-### 704.二分查找
+## 704.二分查找
 
 ```javascript
 /**
@@ -354,7 +354,7 @@ console.log(search2([-1, 0, 3, 5, 9, 12], 9))
 
 ```
 
-### 912.排序数组
+## 912.排序数组
 
 ```javascript
 /**
@@ -412,7 +412,7 @@ export const sortArray = function (nums) {
 
 ```
 
-### 977.有序数组的平方
+## 977.有序数组的平方
 
 ```javascript
 /**
@@ -441,7 +441,7 @@ export const sortedSquares = function (nums) {
 
 ```
 
-### 1234.替换子串得到平衡字符串
+## 1234.替换子串得到平衡字符串
 
 ```javascript
 /**
@@ -480,7 +480,7 @@ console.log(balancedString('QWER'))
 
 ```
 
-### 1248.统计[优美子数组]
+## 1248.统计[优美子数组]
 
 ```javascript
 /**
@@ -513,7 +513,7 @@ console.log(numberOfSubarrays([2, 2, 2, 1, 2, 2, 1, 2, 2, 2], 2))
 
 ```
 
-### 剑指 Offer 40. 最小的k个数
+## 剑指 Offer 40. 最小的k个数
 
 ```javascript
 /**
@@ -587,7 +587,7 @@ export const getLeastNumbers = function (data, k) {
 
 ```
 
-### 剑指 Offer 51. 数组中的逆序对
+## 剑指 Offer 51. 数组中的逆序对
 
 ```javascript
 /**
@@ -665,7 +665,7 @@ const mergeSort = (arrData) => {
 
 ```
 
-### 300.最长递增子序列
+## 300.最长递增子序列
 
 ```javascript
 /**

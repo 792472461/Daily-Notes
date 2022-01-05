@@ -1,6 +1,6 @@
 # 队列经典问题
 
-### 基于链表实现的队列
+## 基于链表实现的队列
 
 ```javascript
 class Node {
@@ -78,7 +78,7 @@ console.log(q.toString())
 
 ```
 
-### 622.设计双端队列
+## 622.设计双端队列
 
 ```javascript
 /**
@@ -169,7 +169,7 @@ MyCircularQueue.prototype.isFull = function () {
  */
 ```
 
-### 641.设计循环双端队列
+## 641.设计循环双端队列
 
 ```javascript
 /*
@@ -275,7 +275,7 @@ MyCircularDeque.prototype.isFull = function () {
 
 ```
 
-### 859.亲密字符串
+## 859.亲密字符串
 
 ```javascript
 /*
@@ -309,7 +309,7 @@ buddyStrings('ab', 'ba')
 // @lc code=end
 ```
 
-### 860.柠檬水找零
+## 860.柠檬水找零
 
 ```javascript
 /**
@@ -353,7 +353,7 @@ console.log(lemonadeChange([5, 5, 5, 10, 20]))
 
 ```
 
-### 933.最近请求次数
+## 933.最近请求次数
 
 ```javascript
 /*
@@ -389,7 +389,7 @@ RecentCounter.prototype.ping = function (t) {
 
 ```
 
-### 969.煎饼排序
+## 969.煎饼排序
 
 ```javascript
 /* eslint-disable no-unused-vars */

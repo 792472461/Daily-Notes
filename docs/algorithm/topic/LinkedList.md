@@ -1,6 +1,6 @@
 # 链表经典问题
 
-### 链表实现
+## 链表实现
 
 ```javascript
 class Node {
@@ -165,7 +165,7 @@ module.exports = {
 
 ```
 
-### 141.环形链表
+## 141.环形链表
 
 ```javascript
 /**
@@ -208,7 +208,7 @@ export const hasCycle = function (head) {
 
 ```
 
-### 142.环形链表Ⅱ
+## 142.环形链表Ⅱ
 
 ```javascript
 /**
@@ -256,7 +256,7 @@ export const detectCycle = function (head) {
 
 ```
 
-### 19.删除链表中的倒数第n个节点
+## 19.删除链表中的倒数第n个节点
 
 ```javascript
 export const removeNthFromEnd = function (head, n) {
@@ -285,7 +285,7 @@ console.log(removeNthFromEnd(linkedList.head, 1).toString())
 
 ```
 
-### 21.合并两个有序链表
+## 21.合并两个有序链表
 
 ```javascript
 /**
@@ -316,7 +316,7 @@ export const mergeTwoLists = function (l1, l2) {
 
 ```
 
-### 24.两两交换链表中的节点
+## 24.两两交换链表中的节点
 
 ```javascript
 /**
@@ -349,7 +349,7 @@ export const mergeTwoLists = function (l1, l2) {
 
 ```
 
-### 25.k个一组翻转链表
+## 25.k个一组翻转链表
 
 ```javascript
 // @lc code=start
@@ -413,7 +413,7 @@ function reverseList (head, stop) {
 
 ```
 
-### 61.旋转链表
+## 61.旋转链表
 
 ```javascript
 /*
@@ -456,7 +456,7 @@ export const rotateRight = function (head, k) {
 
 ```
 
-### 82.删除排序链表中的重复元素Ⅱ
+## 82.删除排序链表中的重复元素Ⅱ
 
 ```javascript
 /*
@@ -504,7 +504,7 @@ export const deleteDuplicates = function (head) {
 
 ```
 
-### 83.删除排序链表中的重复元素
+## 83.删除排序链表中的重复元素
 
 ```javascript
 /* eslint-disable no-unused-vars */
@@ -550,7 +550,7 @@ const deleteDuplicates = function (head) {
 
 ```
 
-### 86.分割链表
+## 86.分割链表
 
 ```javascript
 /* eslint-disable no-unused-vars */
@@ -595,7 +595,7 @@ export const partition = function (head, x) {
 
 ```
 
-### 92.反转链表Ⅱ
+## 92.反转链表Ⅱ
 
 ```javascript
 const reverse = (head, n) => {
@@ -629,7 +629,7 @@ console.log(reverseBetween(linkedList.head, 2, 5).toString())
 
 ```
 
-### 146.LRU缓存
+## 146.LRU缓存
 ```javascript
 function Node (val, next = null, pre = null) {
   this.val = val
@@ -712,7 +712,7 @@ LRUCache.prototype.put = function (key, value) {
 
 ```
 
-### 202.快乐数
+## 202.快乐数
 
 ```javascript
 /*
@@ -750,7 +750,7 @@ function getNext (n) {
 
 ```
 
-### 203.移除链表元素
+## 203.移除链表元素
 
 ```javascript
 
@@ -775,10 +775,10 @@ console.log(removeElements(linkedList.head, 2).toString())
 
 ```
 
-### 206.反转链表Ⅰ
+## 206.反转链表Ⅰ
 
 ```javascript
-const { LinkedList } = require('../basics/LinkedList')
+const { LinkedList } = require('./LinkedList')
 
 const linkedList = new LinkedList()
 
@@ -817,7 +817,7 @@ console.log(reverseList1(linkedList.head).toString())
 
 ```
 
-### 剑指 Offer 06. 从尾到头打印链表
+## 剑指 Offer 06. 从尾到头打印链表
 ```javascript
 // 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
 
