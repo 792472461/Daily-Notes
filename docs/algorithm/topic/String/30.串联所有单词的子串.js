@@ -24,7 +24,7 @@ const findSubstring = function (s, words) {
  *
  * @param {string} str
  * @param {string[]} words
- * @param {Map<string, number>} wordsMap
+ * @param {Map<string, number>} wordsMap``
  */
 function valid (str, words, wordsMap) {
   const k = words[0].length
