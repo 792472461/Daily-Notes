@@ -129,4 +129,106 @@ clear()
 
 ## 双端队列的数据结构
 
-撰写中...
+双端队列（deque，即double-ended queue的缩写）是一种具有队列和栈性质的数据结构，即可（也只能）在线性表的两端进行插入和删除。
+
+双端队列是限定插入和删除操作在表的两端进行的线性表。这两端分别称做端点1和端点2。也可像栈一样，可以用一个铁道转轨网络来比喻双端队列。在实际使用中，还可以有输出受限的双端队列（即一个端点允许插入和删除，另一个端点只允许插入的双端队列）和输入受限的双端队列（即一个端点允许插入和删除，另一个端点只允许删除的双端队列）。而如果限定双端队列从某个端点插入的元素只能从该端点删除，则该双端队列就蜕变为两个栈底相邻的栈了。
+
+但是尽管双端队列看起来似乎比栈和队列更灵活，但实际上在应用程序中远不及栈和队列有用
+
+```javascript
+class Deque {
+  constructor (capacity = 10) {
+    this.data = new Array(capacity + 1) // 由于使用 size，我们的 Deque 实现不浪费空间
+    this.front = 0
+    this.tail = 0
+    this.size = 0
+  }
+
+  isEmpty () {
+    return this.size === 0
+  }
+
+  getSize () {
+    return this.size
+  }
+
+  addLast (e) {
+    if (this.size === this.getCapacity()) {
+      this.resize(this.getCapacity() * 2)
+    }
+
+    this.data[this.tail] = e
+    this.tail = (this.tail + 1) % this.data.length
+    this.size++
+  }
+
+  addFront (e) {
+    if (this.size === this.getCapacity()) {
+      this.resize(this.getCapacity() * 2)
+    }
+    // 我们首先需要确定添加新元素的索引位置
+    // 这个位置是 front - 1 的地方
+    // 但是要注意，如果 front == 0，新的位置是 data.length - 1 的位置
+    this.front = this.front === 0 ? this.data.length - 1 : this.front - 1
+    this.data[this.front] = e
+    this.size++
+  }
+
+  removeFront () {
+    if (this.isEmpty()) throw new Error('Cannot dequeue from an empty queue.')
+
+    const ret = this.data[this.front]
+    this.data[this.front] = null
+    this.front = (this.front + 1) % this.data.length
+    this.size--
+    if (this.getSize() === this.getCapacity() / 4 && this.getCapacity() / 2 !== 0) {
+      this.resize(this.getCapacity() / 2)
+    }
+    return ret
+  }
+
+  removeLast () {
+    if (this.isEmpty()) throw new Error('Cannot dequeue from an empty queue.')
+
+    // 计算删除掉队尾元素以后，新的 tail 位置
+    this.tail = this.tail === 0 ? this.data.length - 1 : this.tail - 1
+    const ret = this.data[this.tail]
+    this.data[this.tail] = null
+    this.size--
+    if (this.getSize() === this.getCapacity() / 4 && this.getCapacity() / 2 !== 0) {
+      this.resize(this.getCapacity() / 2)
+    }
+    return ret
+  }
+
+  getFront () {
+    if (this.isEmpty()) throw new Error('Queue is empty.')
+    return this.data[this.front]
+  }
+
+  getLast () {
+    if (this.isEmpty()) throw new Error('Queue is empty.')
+
+    // 因为 tail 指向的是队尾元素的下一个位置，我们需要计算一下真正队尾元素的索引
+    const index = this.tail === 0 ? this.data.length - 1 : this.tail - 1
+    return this.data[index]
+  }
+
+  getCapacity () {
+    return this.data.length
+  }
+
+  resize (newCapacity) {
+    const newData = new Array(newCapacity + 1)
+    for (let i = 0; i < this.size; i++) {
+      newData[i] = this.data[(i + this.front) % this.data.length]
+    }
+
+    this.data = newData
+    this.front = 0
+    this.tail = this.size
+  }
+}
+
+module.exports = Deque
+```
