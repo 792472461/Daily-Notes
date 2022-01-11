@@ -359,16 +359,13 @@ module.exports = Promise;
 ```
 
 ## 好文
-### 面试相关
-- [前端面试真题，会80%直接进大厂](https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&table=tblEnSV2PNAajtWE&view=vewJHSwJVd)
+- [面试] [前端面试真题，会80%直接进大厂](https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&table=tblEnSV2PNAajtWE&view=vewJHSwJVd)
 
-### 算法相关
-- [labuladong 的算法小抄](https://labuladong.gitee.io/algo/)
+- [算法] [labuladong 的算法小抄](https://labuladong.gitee.io/algo/)
 - [LeetCode学习](https://github.com/azl397985856/leetcode)
 - [力扣加加](https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/)
 - [CodeTop](https://codetop.cc/home)
 
-### 杂谈
 - [if 我是前端团队 Leader，怎么制定前端协作规范](https://juejin.cn/post/6844903897610321934)
 - [前端常用插件、工具类库汇总](https://juejin.cn/post/6844903683411410951)
 - [茂茂物语](https://notes.fe-mm.com/)
