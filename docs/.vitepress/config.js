@@ -1,6 +1,3 @@
-const fs = require('fs')
-const path = require('path')
-
 const selfDestroyingSWVitePlugin = {
   name: 'generate-self-destroying-service-worker',
   buildStart () {
@@ -204,7 +201,20 @@ module.exports = {
                 {
                   text: '树',
                   link: '/algorithm/topic/Tree',
-                }],
+                },
+                {
+                  text: '深度优先遍历',
+                  link: '/algorithm/topic/DFS',
+                },
+                {
+                  text: '贪心算法',
+                  link: '/algorithm/topic/GreedyAlgorithm',
+                },
+                {
+                  text: '动态规划',
+                  link: '/algorithm/topic/DP'
+                }
+              ],
             },
 
           ],
