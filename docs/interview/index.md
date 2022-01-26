@@ -353,12 +353,8 @@ Promise.defer = Promise.deferred = () => {
 
 module.exports = Promise;
 ```
-
-=======
-
-```
-
 ## 好文
+
 - [面试] [前端面试真题，会80%直接进大厂](https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&table=tblEnSV2PNAajtWE&view=vewJHSwJVd)
 
 - [算法] [labuladong 的算法小抄](https://labuladong.gitee.io/algo/)
@@ -377,3 +373,10 @@ module.exports = Promise;
 - [美团技术团队](https://tech.meituan.com/)
 - [babel用户手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md)
 - [nodejs源码解析](https://github.com/theanarkh/understand-nodejs)
+
+## Node相关
+
+### 执行一个nodejs文件是一进程还是线程
+
+- 进程是应用程序的执行副本。（OS分配资源的最小单位）
+- 线程是轻量级的进程。（OS执行程序的最小单位）
