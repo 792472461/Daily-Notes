@@ -26,9 +26,334 @@
 5. 仔细想想，async 对于应用脚本的用处不大，因为它完全不考虑依赖（哪怕是最低级的顺序执行），不过它对那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的，最典型的例子：Google Analytics
    :::
 
-### 浅拷贝、深拷贝
+### var,let,const区别
+
+| 区别 | var  | let | const |
+|:---: | :---: | :---: |:-----:|
+| 是否会产生"块级作用域" | ❎ | ✅ | ✅ |
+| 是否会被声明提升 | ✅ | ✅ | ✅ |
+| 是否会保存到window中 | ✅ | ✅ | ✅ |
+| 相同作用域中能否重复声明 | ✅ | ✅ | ✅ |
+| 是否能提前使用 | ✅ | ✅ | ✅ |
+| 是否必须设置初始值 | ❎ | ✅ | ✅ |
+| 是否修改实际保存在变量中的原始类型值或引用类型地址 | ✅ | ✅ | ❎|
+
+### JS创建对象的方式
+
+1. new Object() 缺点: 步骤多
+2. 字面量: var 对象名={} 缺点: 如果反复创建多个对象，代码会很冗余
+3. 工厂函数方式
+
+```javascript
+function createPerson (name, age) {
+  var o = new Object();
+  o.name = name;
+  o.age = age;
+  o.say = function () { alert(this.name); }
+  return o;
+}
+
+var p1 = createPerson("lilei", 11);
+```
+
+缺点: 本质还是Object()，将来无法根据对象的原型对象准确判断对象的类型
+
+4. 构造函数方式：
+
+- 先用构造函数定义一类对象的统一属性结构和方法
+- 再用new调用构造函数，反复创建相同属性结构，不同属性值的多个对象
+- 缺点: 如果构造函数中包含方法，则重复创建，浪费内存
+
+```javascript
+function Student (sname, sage) {
+  this.sname = sname;
+  this.sage = sage;
+  this.intr = function () {}
+}
+
+var lilei = new Student("lilei", 11)
+```
+
+5. 原型对象方式：先创建完全相同的对象，再给子对象添加个性化属性。
+
+```javascript
+function Person () {
+}
+
+Person.prototype.name = "主人很懒"
+Person.prototype.age = 11;
+Person.prototype.say = function () {
+  console.log(this.name);
+};
+var p1 = new Person(); //创建一个实例p1
+p1.name = "Li Lei" //禁止修改共有属性，而是自动太你家自由属性
+var p2 = new Person(); //创建实例p2
+p2.name = "Han Meimei"; //同上
+console.log(lilei);
+console.log(hmm);
+```
+
+缺点: 步骤繁琐
+
+6. 混合模式：先创建完全相同的对象，再给子对象添加个性化属性。
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+Person.prototype.say = function () {
+  console.log(this.name);
+};
+var p1 = new Person("Li Lei", 11);
+var p2 = new Person("Han Meimei", 12);
+console.log(lilei);
+console.log(hmm);
+```
+
+缺点： 不符合面向对象封装思想
+
+7. 动态混合：先创建完全相同的对象，再给子对象添加个性化属性。 缺点: 语义不符，其实if只在创建第一个对象时有意义。
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+  if (Person.prototype.say === "undefined") {
+    Person.prototype.say = function () {
+      console.log(this.name);
+    };
+  }
+}
+
+var p1 = new Person("Li Lei", 11);
+var p2 = new Person("Han Meimei", 12);
+console.log(lilei);
+console.log(hmm);
+```
+
+8. 寄生构造函数：构造函数里调用其他的构造函数
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+  if (Person.prototype.say === "undefined") {
+    Person.prototype.say = function () {
+      console.log(this.name);
+    };
+  }
+}
+
+function Student (name, age, className) {
+  var p = new Person(name, age); //借鸡生蛋——橘子
+  p.className = className
+  return p;
+}
+
+var p1 = new Student("Li Lei", 11, "初一2班");
+var p2 = new Student("Han Meimei", 12, "初二2班");
+console.log(lilei);
+console.log(hmm);
+```
+
+缺点: 可读性差。
+
+9. es5的class
+
+### new Function过程
+
+1. 创建一个新的空对象等待
+2. 让子对象继承构造函数的原型对象
+3. 调用构造函数，将this替换为新对象，通过强行赋值方式为新对象添加 规定的属性
+4. 返回新对象地址
+
+### 继承
+
+1. 原型链式继承: 将父类的实例作为子类的原型
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name;
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(this.name + '正在吃：' + food);
+};
+
+function Cat () { }
+
+Cat.prototype = new Animal();
+Cat.prototype.name = 'cat'
+var cat = new Cat();
+```
+
+缺点: 创建子类实例时，无法向父类构造函数传参
+
+2.构造函数继承:
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+}
+
+function Cat (name, age) {
+  Animal.call(this, name)
+  this.age = age
+}
+
+var cat = new cat()
+```
+
+3. 实例继承
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  var o = new Animal(name); //先创建子类型实例
+  o.age = age;
+  return o;
+}
+
+var cat = new Cat();
+```
+
+4. 拷贝继承: 无法获取父类不可for in遍历的方法
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  var animal = new Animal(name)
+  for (var p in animal) {
+    Cat.prototype[p] = animal[p]
+  }
+  this.age = age
+}
+
+var cat = new Cat();
+```
+
+5. 组合继承
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  Animal.call(this, name);
+  this.age = age
+}
+
+Cat.prototype = new Animal();
+Cat.prototype.constructor = Cat;
+var cat = new Cat();
+```
+
+6. 寄生组合继承
+
+```javascript
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  Animal.call(this, name);
+  this.age = age
+}
+
+(function () { // 创建一个没有实例方法的类
+  var Super = function () {};
+  Super.prototype = Animal.prototype; //将实例作为子类的原型
+  Cat.prototype = new Super();
+})();
+var cat = new Cat();
+```
+
+7. ES6 class extends继承
+
+```javascript
+class Animal {
+  constructor (name) {
+    this.name = name
+  }
+}
+
+class Cat extends Animal {
+  constructor (name) {
+    super.constructor(name);
+  }
+}
+```
+
+### 箭头函数什么时候不能使用
+
+1. 构造函数不能使用
+2. 对象的方法不能用
+3. 原型对象方法不能用
+4. DOM中时间处理函数不能用
+5. 箭头函数无法使用call，apply，bind等
+6. 箭头函数不支持arguments
+7. 箭头函数没有prototype
+
+:::tip 概念
+
+- 父对象中的成员, 子对象无需重复创建，就可直接使用！
+- 就像使用自己的成员一样！
+- 可以直接this.属性名/方法名()
+  :::
+
+### 实现深拷贝
 
 JavaScript中对象是引用类型，保存的是地址，深、浅拷贝的区别是，当拷贝结束后，在一定程度上改变原对象中的某一个引用类型属性的值，新拷贝出来的对象依然受影响的话，就是浅拷贝，反之就是深拷贝。
+
+1. JSON.stringify()以及JSON.parse()，无法深克隆undefined值和内嵌函数
+2. Object.assign(target, source)
+3. 递归实现深拷贝
 
 ```javascript
 function deepClone (obj) {
@@ -119,7 +444,7 @@ function deepMerge (a, b) {
 ### Promise.finally原理
 
 ```javascript
-Promise.prototype.finally = function(callback) {
+Promise.prototype.finally = function (callback) {
   return this.then((data) => {
     // 让函数执行 内部会调用方法，如果方法是promise需要等待他完成
     return Promise.resolve(callback()).then(() => data)
@@ -134,7 +459,7 @@ Promise.prototype.finally = function(callback) {
 ### Promise.race原理
 
 ```javascript
-Promise.race = function(promises) {
+Promise.race = function (promises) {
   return new Promise((resolve, reject) => {
     for (let i = 0; i < promises.length; i++) {
       let currentVal = promises[i];
@@ -152,9 +477,9 @@ Promise.race = function(promises) {
 
 ```javascript
 function promisify (fn) {
-  return function(...args) {
+  return function (...args) {
     return new Promise((resolve, reject) => {
-      fn(...args, function(err, data) {
+      fn(...args, function (err, data) {
         if (err) reject();
         resolve(data);
       })
@@ -197,13 +522,13 @@ function resolvePromise (x, promise2, resolve, reject) {
       if (typeof then === "function") {
         then.call(
           x,
-          function(y) {
+          function (y) {
             if (called) return;
             called = true;
             // 递归解析
             resolvePromise(y, promise2, resolve, reject);
           },
-          function(r) {
+          function (r) {
             if (called) return;
             called = true;
             reject(r);
@@ -353,6 +678,7 @@ Promise.defer = Promise.deferred = () => {
 
 module.exports = Promise;
 ```
+
 ## 好文
 
 - [面试] [前端面试真题，会80%直接进大厂](https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&table=tblEnSV2PNAajtWE&view=vewJHSwJVd)
