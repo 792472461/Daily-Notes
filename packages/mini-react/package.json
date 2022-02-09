@@ -1,0 +1,29 @@
+{
+  "name": "@fengshuai/mini-react",
+  "version": "1.0.0",
+  "description": "mini-react",
+  "keywords": [
+    "react"
+  ],
+  "author": "宋封帅 <17600205539@163.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/mini-react.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://npm.weimob.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com:792472461/daydayup.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

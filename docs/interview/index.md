@@ -347,7 +347,7 @@ class Cat extends Animal {
 - 可以直接this.属性名/方法名()
   :::
 
-### 实现深拷贝
+### 深拷贝
 
 JavaScript中对象是引用类型，保存的是地址，深、浅拷贝的区别是，当拷贝结束后，在一定程度上改变原对象中的某一个引用类型属性的值，新拷贝出来的对象依然受影响的话，就是浅拷贝，反之就是深拷贝。
 
@@ -382,6 +382,86 @@ var obj = {
 }
 ```
 
+### call, apply, bin
+
+call实现
+
+```javascript
+Function.prototype.myCall = function (context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('not a function')
+  }
+  const symbolFn = Symbol()
+  const args = [...arguments].slice(1)
+  context = context || window
+  context[symbolFn] = this
+  const result = context[symbolFn](...args)
+  delete context[symbolFn]
+  return result
+}
+const obj = {
+  name: 'obj'
+}
+
+function foo () {
+  console.log(this.name)
+}
+
+foo.myCall(obj) // obj
+```
+
+apply
+
+```javascript
+Function.prototype.myApply = function (context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('error');
+  }
+  context = context || window;
+  context.fn = this;
+  var result = arguments[1] ? context.fn(...arguments[1]) : context.fn();
+  delete context.fn;
+  return result;
+}
+
+function foo () {
+  console.log(this.age);
+}
+
+var obj = {
+  age: 101
+}
+foo.myApply(obj); // 输出101
+```
+
+bind
+
+```javascript
+Function.prototype.myBind = function (context) {
+  if (typeof this !== 'function') {
+    throw TypeError('error');
+  }
+  const self = this;
+  const args = [...arguments].slice(1);
+  return function F () {
+    if (this instanceof F) {
+      return new self(...args, ...arguments);
+    }
+    return self.apply(context, args.concat(...arguments));
+  }
+}
+
+function foo () {
+  console.log(this.age);
+}
+
+var obj = {
+  age: 121
+}
+var newFunc = foo.myBind(obj);
+newFunc(); // 输出121
+```
+
 ### 浏览器中的进程
 
 1. 浏览器进程：负责界面显示、用户交互、子进程管理，提供存储等。
@@ -408,6 +488,93 @@ var obj = {
 
 每循环一次会执行一个宏任务，并清空对应的微任务队列，每次事件循环完毕后会判断页面是否需要重新渲染 （大约16.6ms会渲染一次）
 :::
+
+
+### 利用swc或者esbuild提升webpack构建速度
+
+:::tip 什么是 swc 和 esbuild
+swc（stands for Speedy Web Compiler）是一个基于 Rust 语言的可扩展平台，目前已经被 Next.js、Parcel、Deno 等使用。它支持编译和打包。
+esbuild 是一个基于 Go 语言的构建工具。
+:::
+
+各自的特性
+
+swc 的特性：
+
+- 可用于编译
+- 可用于打包（swcpack）
+- 支持 Minification
+- 利用 WebAssembly 进行转换
+- 可以用于 webpack 中（swc-loader）
+- @swc/jest 提高 Jest 性能
+- 支持自定义插件
+
+esbuild 的特性：
+
+- 极快的速度，无需缓存
+- 支持 ES6 和 CommonJS 模块
+- 支持对 ES6 模块进行 tree shaking
+- API 可同时用于 JavaScript 和 Go
+- 兼容 TypeScript 和 JSX 语法
+- 支持 Source maps
+- 支持 Minification
+- 支持 plugins
+- 可用于 webpack 中，结合 esbuild-loader 使用
+
+
+#### swc 和 esbuild 为什么快
+
+swc为什么快
+
+babeljs编译流程
+
+js源码 -> 解析成AST树 -> 转译成二进制码 -> 机器码
+
+将源码转变成`AST`树很耗时，而`swc`是基于`Rust`语言的，它直接将源码根据不同平台编译成对应的二进制文件，直接跳过了转`AST`步骤，速度大大提升。
+
+esbuild 为什么快
+
+- 它是用 Go 语言编写的，并可以编译为本地代码；
+- 大量使用并行操作；
+- 未引用第三方依赖；
+- 内存的高效利用，尽量复用 AST 数据。
+
+
+#### swc 和 esbuild 在 webpack 中使用
+
+在 webpack 中需要用 swc-loader 来使用
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.m?js$/,
+      exclude: /(node_modules)/,
+      use: {
+        // `.swcrc` can be used to configure swc
+        loader: "swc-loader"
+      }
+    }
+  ];
+}
+```
+
+webpack 中需要用 esbuild-loader 来使用
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.(js|jsx)$/,
+      loader: 'esbuild-loader',
+      options: {
+        loader: 'jsx',
+        target: 'es2015'
+      },
+    }
+  ]
+}
+```
 
 ## 进阶题
 
