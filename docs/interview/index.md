@@ -26,9 +26,334 @@
 5. 仔细想想，async 对于应用脚本的用处不大，因为它完全不考虑依赖（哪怕是最低级的顺序执行），不过它对那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的，最典型的例子：Google Analytics
    :::
 
-### 浅拷贝、深拷贝
+### var,let,const区别
+
+| 区别 | var  | let | const |
+|:---: | :---: | :---: |:-----:|
+| 是否会产生"块级作用域" | ❎ | ✅ | ✅ |
+| 是否会被声明提升 | ✅ | ✅ | ✅ |
+| 是否会保存到window中 | ✅ | ✅ | ✅ |
+| 相同作用域中能否重复声明 | ✅ | ✅ | ✅ |
+| 是否能提前使用 | ✅ | ✅ | ✅ |
+| 是否必须设置初始值 | ❎ | ✅ | ✅ |
+| 是否修改实际保存在变量中的原始类型值或引用类型地址 | ✅ | ✅ | ❎|
+
+### JS创建对象的方式
+
+1. new Object() 缺点: 步骤多
+2. 字面量: var 对象名={} 缺点: 如果反复创建多个对象，代码会很冗余
+3. 工厂函数方式
+
+```javascript
+function createPerson (name, age) {
+  var o = new Object();
+  o.name = name;
+  o.age = age;
+  o.say = function () { alert(this.name); }
+  return o;
+}
+
+var p1 = createPerson("lilei", 11);
+```
+
+缺点: 本质还是Object()，将来无法根据对象的原型对象准确判断对象的类型
+
+4. 构造函数方式：
+
+- 先用构造函数定义一类对象的统一属性结构和方法
+- 再用new调用构造函数，反复创建相同属性结构，不同属性值的多个对象
+- 缺点: 如果构造函数中包含方法，则重复创建，浪费内存
+
+```javascript
+function Student (sname, sage) {
+  this.sname = sname;
+  this.sage = sage;
+  this.intr = function () {}
+}
+
+var lilei = new Student("lilei", 11)
+```
+
+5. 原型对象方式：先创建完全相同的对象，再给子对象添加个性化属性。
+
+```javascript
+function Person () {
+}
+
+Person.prototype.name = "主人很懒"
+Person.prototype.age = 11;
+Person.prototype.say = function () {
+  console.log(this.name);
+};
+var p1 = new Person(); //创建一个实例p1
+p1.name = "Li Lei" //禁止修改共有属性，而是自动太你家自由属性
+var p2 = new Person(); //创建实例p2
+p2.name = "Han Meimei"; //同上
+console.log(lilei);
+console.log(hmm);
+```
+
+缺点: 步骤繁琐
+
+6. 混合模式：先创建完全相同的对象，再给子对象添加个性化属性。
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+Person.prototype.say = function () {
+  console.log(this.name);
+};
+var p1 = new Person("Li Lei", 11);
+var p2 = new Person("Han Meimei", 12);
+console.log(lilei);
+console.log(hmm);
+```
+
+缺点： 不符合面向对象封装思想
+
+7. 动态混合：先创建完全相同的对象，再给子对象添加个性化属性。 缺点: 语义不符，其实if只在创建第一个对象时有意义。
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+  if (Person.prototype.say === "undefined") {
+    Person.prototype.say = function () {
+      console.log(this.name);
+    };
+  }
+}
+
+var p1 = new Person("Li Lei", 11);
+var p2 = new Person("Han Meimei", 12);
+console.log(lilei);
+console.log(hmm);
+```
+
+8. 寄生构造函数：构造函数里调用其他的构造函数
+
+```javascript
+function Person (name, age) {
+  this.name = name;
+  this.age = age;
+  if (Person.prototype.say === "undefined") {
+    Person.prototype.say = function () {
+      console.log(this.name);
+    };
+  }
+}
+
+function Student (name, age, className) {
+  var p = new Person(name, age); //借鸡生蛋——橘子
+  p.className = className
+  return p;
+}
+
+var p1 = new Student("Li Lei", 11, "初一2班");
+var p2 = new Student("Han Meimei", 12, "初二2班");
+console.log(lilei);
+console.log(hmm);
+```
+
+缺点: 可读性差。
+
+9. es5的class
+
+### new Function过程
+
+1. 创建一个新的空对象等待
+2. 让子对象继承构造函数的原型对象
+3. 调用构造函数，将this替换为新对象，通过强行赋值方式为新对象添加 规定的属性
+4. 返回新对象地址
+
+### 继承
+
+1. 原型链式继承: 将父类的实例作为子类的原型
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name;
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(this.name + '正在吃：' + food);
+};
+
+function Cat () { }
+
+Cat.prototype = new Animal();
+Cat.prototype.name = 'cat'
+var cat = new Cat();
+```
+
+缺点: 创建子类实例时，无法向父类构造函数传参
+
+2.构造函数继承:
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+}
+
+function Cat (name, age) {
+  Animal.call(this, name)
+  this.age = age
+}
+
+var cat = new cat()
+```
+
+3. 实例继承
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  var o = new Animal(name); //先创建子类型实例
+  o.age = age;
+  return o;
+}
+
+var cat = new Cat();
+```
+
+4. 拷贝继承: 无法获取父类不可for in遍历的方法
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  var animal = new Animal(name)
+  for (var p in animal) {
+    Cat.prototype[p] = animal[p]
+  }
+  this.age = age
+}
+
+var cat = new Cat();
+```
+
+5. 组合继承
+
+```javascript
+// 定义一个父类型
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  Animal.call(this, name);
+  this.age = age
+}
+
+Cat.prototype = new Animal();
+Cat.prototype.constructor = Cat;
+var cat = new Cat();
+```
+
+6. 寄生组合继承
+
+```javascript
+function Animal (name) {
+  this.name = name
+  this.say = function () { console.log(`I'm ${this.name}`); }
+}
+
+// 原型对象方法
+Animal.prototype.eat = function (food) {
+  console.log(`${this.name}吃${food}`)
+};
+
+function Cat (name, age) {
+  Animal.call(this, name);
+  this.age = age
+}
+
+(function () { // 创建一个没有实例方法的类
+  var Super = function () {};
+  Super.prototype = Animal.prototype; //将实例作为子类的原型
+  Cat.prototype = new Super();
+})();
+var cat = new Cat();
+```
+
+7. ES6 class extends继承
+
+```javascript
+class Animal {
+  constructor (name) {
+    this.name = name
+  }
+}
+
+class Cat extends Animal {
+  constructor (name) {
+    super.constructor(name);
+  }
+}
+```
+
+### 箭头函数什么时候不能使用
+
+1. 构造函数不能使用
+2. 对象的方法不能用
+3. 原型对象方法不能用
+4. DOM中时间处理函数不能用
+5. 箭头函数无法使用call，apply，bind等
+6. 箭头函数不支持arguments
+7. 箭头函数没有prototype
+
+:::tip 概念
+
+- 父对象中的成员, 子对象无需重复创建，就可直接使用！
+- 就像使用自己的成员一样！
+- 可以直接this.属性名/方法名()
+  :::
+
+### 深拷贝
 
 JavaScript中对象是引用类型，保存的是地址，深、浅拷贝的区别是，当拷贝结束后，在一定程度上改变原对象中的某一个引用类型属性的值，新拷贝出来的对象依然受影响的话，就是浅拷贝，反之就是深拷贝。
+
+1. JSON.stringify()以及JSON.parse()，无法深克隆undefined值和内嵌函数
+2. Object.assign(target, source)
+3. 递归实现深拷贝
 
 ```javascript
 function deepClone (obj) {
@@ -57,6 +382,86 @@ var obj = {
 }
 ```
 
+### call, apply, bin
+
+call实现
+
+```javascript
+Function.prototype.myCall = function (context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('not a function')
+  }
+  const symbolFn = Symbol()
+  const args = [...arguments].slice(1)
+  context = context || window
+  context[symbolFn] = this
+  const result = context[symbolFn](...args)
+  delete context[symbolFn]
+  return result
+}
+const obj = {
+  name: 'obj'
+}
+
+function foo () {
+  console.log(this.name)
+}
+
+foo.myCall(obj) // obj
+```
+
+apply
+
+```javascript
+Function.prototype.myApply = function (context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('error');
+  }
+  context = context || window;
+  context.fn = this;
+  var result = arguments[1] ? context.fn(...arguments[1]) : context.fn();
+  delete context.fn;
+  return result;
+}
+
+function foo () {
+  console.log(this.age);
+}
+
+var obj = {
+  age: 101
+}
+foo.myApply(obj); // 输出101
+```
+
+bind
+
+```javascript
+Function.prototype.myBind = function (context) {
+  if (typeof this !== 'function') {
+    throw TypeError('error');
+  }
+  const self = this;
+  const args = [...arguments].slice(1);
+  return function F () {
+    if (this instanceof F) {
+      return new self(...args, ...arguments);
+    }
+    return self.apply(context, args.concat(...arguments));
+  }
+}
+
+function foo () {
+  console.log(this.age);
+}
+
+var obj = {
+  age: 121
+}
+var newFunc = foo.myBind(obj);
+newFunc(); // 输出121
+```
+
 ### 浏览器中的进程
 
 1. 浏览器进程：负责界面显示、用户交互、子进程管理，提供存储等。
@@ -83,6 +488,93 @@ var obj = {
 
 每循环一次会执行一个宏任务，并清空对应的微任务队列，每次事件循环完毕后会判断页面是否需要重新渲染 （大约16.6ms会渲染一次）
 :::
+
+
+### 利用swc或者esbuild提升webpack构建速度
+
+:::tip 什么是 swc 和 esbuild
+swc（stands for Speedy Web Compiler）是一个基于 Rust 语言的可扩展平台，目前已经被 Next.js、Parcel、Deno 等使用。它支持编译和打包。
+esbuild 是一个基于 Go 语言的构建工具。
+:::
+
+各自的特性
+
+swc 的特性：
+
+- 可用于编译
+- 可用于打包（swcpack）
+- 支持 Minification
+- 利用 WebAssembly 进行转换
+- 可以用于 webpack 中（swc-loader）
+- @swc/jest 提高 Jest 性能
+- 支持自定义插件
+
+esbuild 的特性：
+
+- 极快的速度，无需缓存
+- 支持 ES6 和 CommonJS 模块
+- 支持对 ES6 模块进行 tree shaking
+- API 可同时用于 JavaScript 和 Go
+- 兼容 TypeScript 和 JSX 语法
+- 支持 Source maps
+- 支持 Minification
+- 支持 plugins
+- 可用于 webpack 中，结合 esbuild-loader 使用
+
+
+#### swc 和 esbuild 为什么快
+
+swc为什么快
+
+babeljs编译流程
+
+js源码 -> 解析成AST树 -> 转译成二进制码 -> 机器码
+
+将源码转变成`AST`树很耗时，而`swc`是基于`Rust`语言的，它直接将源码根据不同平台编译成对应的二进制文件，直接跳过了转`AST`步骤，速度大大提升。
+
+esbuild 为什么快
+
+- 它是用 Go 语言编写的，并可以编译为本地代码；
+- 大量使用并行操作；
+- 未引用第三方依赖；
+- 内存的高效利用，尽量复用 AST 数据。
+
+
+#### swc 和 esbuild 在 webpack 中使用
+
+在 webpack 中需要用 swc-loader 来使用
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.m?js$/,
+      exclude: /(node_modules)/,
+      use: {
+        // `.swcrc` can be used to configure swc
+        loader: "swc-loader"
+      }
+    }
+  ];
+}
+```
+
+webpack 中需要用 esbuild-loader 来使用
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.(js|jsx)$/,
+      loader: 'esbuild-loader',
+      options: {
+        loader: 'jsx',
+        target: 'es2015'
+      },
+    }
+  ]
+}
+```
 
 ## 进阶题
 
@@ -119,7 +611,7 @@ function deepMerge (a, b) {
 ### Promise.finally原理
 
 ```javascript
-Promise.prototype.finally = function(callback) {
+Promise.prototype.finally = function (callback) {
   return this.then((data) => {
     // 让函数执行 内部会调用方法，如果方法是promise需要等待他完成
     return Promise.resolve(callback()).then(() => data)
@@ -134,7 +626,7 @@ Promise.prototype.finally = function(callback) {
 ### Promise.race原理
 
 ```javascript
-Promise.race = function(promises) {
+Promise.race = function (promises) {
   return new Promise((resolve, reject) => {
     for (let i = 0; i < promises.length; i++) {
       let currentVal = promises[i];
@@ -152,9 +644,9 @@ Promise.race = function(promises) {
 
 ```javascript
 function promisify (fn) {
-  return function(...args) {
+  return function (...args) {
     return new Promise((resolve, reject) => {
-      fn(...args, function(err, data) {
+      fn(...args, function (err, data) {
         if (err) reject();
         resolve(data);
       })
@@ -197,13 +689,13 @@ function resolvePromise (x, promise2, resolve, reject) {
       if (typeof then === "function") {
         then.call(
           x,
-          function(y) {
+          function (y) {
             if (called) return;
             called = true;
             // 递归解析
             resolvePromise(y, promise2, resolve, reject);
           },
-          function(r) {
+          function (r) {
             if (called) return;
             called = true;
             reject(r);
@@ -354,11 +846,8 @@ Promise.defer = Promise.deferred = () => {
 module.exports = Promise;
 ```
 
-=======
-
-```
-
 ## 好文
+
 - [面试] [前端面试真题，会80%直接进大厂](https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&table=tblEnSV2PNAajtWE&view=vewJHSwJVd)
 
 - [算法] [labuladong 的算法小抄](https://labuladong.gitee.io/algo/)
@@ -377,3 +866,10 @@ module.exports = Promise;
 - [美团技术团队](https://tech.meituan.com/)
 - [babel用户手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md)
 - [nodejs源码解析](https://github.com/theanarkh/understand-nodejs)
+
+## Node相关
+
+### 执行一个nodejs文件是一进程还是线程
+
+- 进程是应用程序的执行副本。（OS分配资源的最小单位）
+- 线程是轻量级的进程。（OS执行程序的最小单位）
