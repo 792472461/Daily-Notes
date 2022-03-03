@@ -1,5 +1,5 @@
 const wip = null
 
-function PerformUnitOfWork () {
-
+export function PerformUnitOfWork () {
+  console.log(wip)
 }

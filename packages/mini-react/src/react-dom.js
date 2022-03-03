@@ -1,3 +1,3 @@
-function ReactRoot () {
+export function ReactRoot () {
 
 }

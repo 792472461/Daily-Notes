@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-module.exports = miniReact;
+module.exports = miniReact
 
-function miniReact() {
-    // TODO
+function miniReact () {
+  // TODO
 }
