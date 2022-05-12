@@ -2,159 +2,23 @@
 
 ## 11.盛水最多的容器
 
-```javascript
-/**
- * @param {number[]} height
- * @return {number}
- */
-export const maxArea = function (height) {
-    let max = 0
-
-    for (let i = 0, j = height.length - 1; i < j;) {
-      let minHeight = 0
-
-      if (height[i] < height[j]) {
-        minHeight = height[i]
-
-        i++
-      } else {
-        minHeight = height[j]
-        j--
-      }
-      const area = (j - i + 1) * minHeight
-
-      max = Math.max(max, area)
-    }
-    return max
-  }
-
-```
+<<< @/algorithm/topic/Array/11.盛最多水的容器.js
 
 ## 26.删除有序数组中的重复项
 
-```javascript
-/**
- * @param {number[]} nums
- * @return {number}
- */
-export const removeDuplicates = function (nums) {
-    let n = 0
-    for (let i = 0; i < nums.length; i++) {
-      // 只要循环过程中,nums[i]和前面一位不一样，就存下来,n++
-      if (i === 0 || nums[i] !== nums[i - 1]) {
-        nums[n] = nums[i]
-        n++
-      }
-    }
-    return n
-  }
-```
+<<< @/algorithm/topic/Array/26.删除有序数组中的重复项.js
 
-## 35.搜索插入的位置
+## 35.搜索插入位置
 
-```javascript
-// 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
-// 请必须使用时间复杂度为 O(log n) 的算法。
+<<< @/algorithm/topic/Array/35.搜索插入位置.js
 
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number}
- */
-export const searchInsert = function (nums, target) {
-  if (!nums.length) return 0
-  const middle = Math.floor(nums.length / 2)
-  if (nums[middle] === target) return middle
-  let i, j
-  if (nums[middle] > target) {
-    i = 0
-    j = middle
-  } else {
-    i = middle + 1
-    j = nums.length
-  }
-  if (nums[i] > target) return i
-  while (i < j) {
-    if (nums[i] === target) return i
-    if (nums[i] < target && target < nums[i + 1]) return i + 1
-    i++
-  }
-  return j
-}
+## 53.最大子序和
 
-```
-
-## 51.最大子数数组和
-
-```javascript
-/**
- * @param {number[]} nums
- * @return {number}
- */
-const maxSubArray = function (nums) {
-    let ans = -Infinity // 保证是最小值
-    const n = nums.length
-    const s = new Array(n + 1).fill(0)
-    const preMin = new Array(n + 1).fill(0)
-    s[0] = 0
-    for (let i = 1; i <= n; i++) {
-      s[i] = s[i - 1] + nums[i - 1]
-    }
-    preMin[0] = s[0]
-    for (let i = 1; i <= n; i++) {
-      preMin[i] = Math.min(preMin[i - 1], s[i])
-    }
-    for (let i = 1; i <= n; i++) {
-      ans = Math.max(ans, s[i] - preMin[i - 1])
-    }
-    return ans
-  }
-
-console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])) // 6
-console.log(maxSubArray([5, 4, -1, 7, 8])) // 23
-```
+<<< @/algorithm/topic/Array/53.最大子序和.js
 
 ## 75.颜色分类
 
-```javascript
-/**
- * @param {number[]} nums
- * @return {void} Do not return anything, modify nums in-place instead.
- */
-const sortColors = function (nums) {
-    /**
-     * 数组辅助函数，调换位置
-     * @param {number[]} arr 原数组
-     * @param {number} i 下标i
-     * @param {number} j 下标j
-     */
-    const swap = (arr, i, j) => {
-      const temp = arr[i]
-      arr[i] = arr[j]
-      arr[j] = temp
-    }
-    // nums[0...zero] == 0, nums[zero + 1, i] == 1, nums[two, n - 1] == 2
-    let zero = -1
-    let i = 0
-    let two = nums.length
-    while (i < two) {
-      if (nums[i] === 0) {
-        zero++
-        swap(nums, i, zero)
-        i++
-      } else if (nums[i] === 2) {
-        two--
-        swap(nums, i, two)
-      } else {
-        i++
-      }
-    }
-  }
-
-sortColors([2, 0, 2, 1, 1, 0]) // [0,0,1,1,2,2]
-
-```
-
+<<< @/algorithm/topic/Array/75.颜色分类.js
 ## 167.两数之和 II - 输入有序数组
 
 ```javascript

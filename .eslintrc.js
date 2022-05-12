@@ -24,5 +24,6 @@ module.exports = {
         'node/no-extraneous-require': 'off'
       }
     }
-  ]
+  ],
+  parser: '@typescript-eslint/parser'
 }

@@ -1,11 +1,11 @@
 class ReactiveEffect {
-  private _fn: () => void
+  private fn
   constructor(fn: () => void) {
-    this._fn = fn
+    this.fn = fn
   }
   run() {
     activeEffect = this
-    this._fn()
+    this.fn()
   }
 }
 

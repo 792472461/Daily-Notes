@@ -1,5 +1,9 @@
-function deepMergeObject(a: Record<string, any>, b: Record<string, any>) {
-  const rest = {}
+function deepMergeArray (a: any[], b: any[]) {
+  return [...a, ...b]
+}
+
+function deepMergeObject (a: Record<string, any>, b: Record<string, any>) {
+  const rest: Record<string, any> = {}
   Object.keys(b).forEach(key => {
     if (key in a) {
       rest[key] = deepMerge(a[key], b[key])
@@ -9,11 +13,7 @@ function deepMergeObject(a: Record<string, any>, b: Record<string, any>) {
   })
 }
 
-function deepMergeArray(a: any[], b: any[]) {
-  return [...a, ...b]
-}
-
-function deepMerge(a: any, b: any) {
+function deepMerge (a: any, b: any) {
   if (!a || !b) return a || b
   if (typeof a !== typeof b) return b
   if (Array.isArray(a) && Array.isArray(b)) return deepMergeArray(a, b)
