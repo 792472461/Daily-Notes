@@ -1,6 +1,58 @@
 # 前端面试汇总
 
-## 基础题
+## CSS相关
+
+### flex
+
+1. flex-direction: 属性决定主轴的方向；
+   1. row 水平方向，起点在左端
+   2. row-reverse  水平方向，起点右端
+   3. column 纵向方向，起点在上
+   4. column 纵向方向，起点在下
+2. flex-wrap:决定是否换行，默认都是排在一行
+   1. no-wrap;(默认)不换行
+   2. wrap; //换行，第一行在上方
+   3. wrap-reverse;//换行；第二行在上方
+3. flex-flow:flex-direction和flex-wrap的缩写，默认为row nowrap
+4. justify-content:定义在item在主轴上的对齐方式
+   1. flex-start 从左到右
+   2. flex-end   从右到左
+   3. center     居中
+   4. space-between 两端对齐
+   5. space-around   每个item两侧中间相等
+5. justify-content:定义在item在主轴上的对齐方式
+6. flex: 1;代表什么
+   1. 第一个参数表示: flex-grow 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大
+   2. 第二个参数表示: flex-shrink 定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小
+   3. 第三个参数表示: flex-basis给上面两个属性分配多余空间之前, 计算项目是否有多余空间, 默认值为 auto, 即项目本身的大小
+
+### BFC
+
+::: tip BFC概念
+BFC就是“块级格式化上下文”的意思，也有译作“块级格式化范围”。它是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。通俗的讲，就是一个特殊的块，内部有自己的布局方式，不受外边元素的影响。
+
+原理:
+
+- BFC内部的盒子，会在垂直方向，一个接一个地放置。垂直方向上也会发生边距重叠。
+- BFC就是页面上的一个独立容器，容器里面的子元素不会影响到外面的元素，外边的也不会影响里边的。
+- BFC的区域不会与float box重叠。
+计算BFC的高度时，浮动元素也被计算在内
+:::
+
+BFC如何产生
+
+```css
+{
+  overflow: auto/ hidden;
+  position: absolute/ fixed;
+  float: left/ right;
+  display: inline-block/ table-cell/ table-caption/ flex/ inline-flex
+}
+```
+
+在属性值为这些的情况下，都会让所属的box产生BFC。
+
+## JavaScript相关
 
 ### script标签属性
 
@@ -489,7 +541,6 @@ newFunc(); // 输出121
 每循环一次会执行一个宏任务，并清空对应的微任务队列，每次事件循环完毕后会判断页面是否需要重新渲染 （大约16.6ms会渲染一次）
 :::
 
-
 ### 利用swc或者esbuild提升webpack构建速度
 
 :::tip 什么是 swc 和 esbuild
@@ -521,7 +572,6 @@ esbuild 的特性：
 - 支持 plugins
 - 可用于 webpack 中，结合 esbuild-loader 使用
 
-
 #### swc 和 esbuild 为什么快
 
 swc为什么快
@@ -538,7 +588,6 @@ esbuild 为什么快
 - 大量使用并行操作；
 - 未引用第三方依赖；
 - 内存的高效利用，尽量复用 AST 数据。
-
 
 #### swc 和 esbuild 在 webpack 中使用
 
@@ -659,192 +708,7 @@ let read = promisify(fs.readFile);
 
 ### 手写Promise函数
 
-```javascript
-// promise的三种状态值
-const STATUS = {
-  PENDING: "PENDING",
-  FUFILLED: "FUFILLED",
-  REJECTED: "REJECTED",
-};
-
-const isPromise = (obj) => {
-  return (
-    ((typeof obj === "object" && x !== null) || typeof obj === "function") &&
-    typeof obj.then === "function"
-  );
-};
-
-// 处理返回promise情况
-function resolvePromise (x, promise2, resolve, reject) {
-  // If promise and x refer to the same object, reject promise with a TypeError as the reason.
-  if (x === promise2) {
-    return reject(new TypeError("出错了"));
-  }
-  // 判断是否promise
-  if ((typeof x === "object" && x !== null) || typeof x === "function") {
-    let called;
-    try {
-      const then = x.then;
-      // 这个地方如果采用isPromise，测试过不去
-      if (typeof then === "function") {
-        then.call(
-          x,
-          function (y) {
-            if (called) return;
-            called = true;
-            // 递归解析
-            resolvePromise(y, promise2, resolve, reject);
-          },
-          function (r) {
-            if (called) return;
-            called = true;
-            reject(r);
-          }
-        );
-      } else {
-        resolve(x);
-      }
-    } catch (error) {
-      if (called) return;
-      called = true;
-      reject(error);
-    }
-  } else {
-    // 普通值
-    resolve(x);
-  }
-}
-
-class Promise {
-  constructor (executor) {
-    this.status = STATUS.PENDING;
-    this.value = undefined;
-    this.reason = undefined;
-
-    this.onResolvedCallbacks = []; // 成功回调
-    this.onRejectedCallbacks = []; // 失败回调
-    this.status = STATUS.PENDING;
-
-    const resolve = (val) => {
-      if (val instanceof Promise) {
-        // 是promise 就继续递归解析
-        return val.then(resolve, reject);
-      }
-
-      if (this.status === STATUS.PENDING) {
-        this.status = STATUS.FUFILLED;
-        this.value = val;
-        // 发布订阅模式，异步
-        this.onResolvedCallbacks.forEach((fn) => fn());
-      }
-    };
-    const reject = (reason) => {
-      if (this.status === STATUS.PENDING) {
-        this.status = STATUS.REJECTED;
-        this.reason = reason;
-        // 发布订阅模式，异步
-        this.onRejectedCallbacks.forEach((fn) => fn());
-      }
-    };
-    try {
-      executor(resolve, reject);
-    } catch (error) {
-      reject(error);
-    }
-  }
-
-  then (onFulfilled, onRejected) {
-    // 给定一个默认方法
-    onFulfilled = typeof onFulfilled === "function" ? onFulfilled : (x) => x;
-    onRejected =
-      typeof onRejected === "function"
-        ? onRejected
-        : (err) => {
-          throw err;
-        };
-    // 链式调用，需要返回一个promise
-    let promise2 = new Promise((resolve, reject) => {
-      // 成功状态
-      if (this.status === STATUS.FUFILLED) {
-        setTimeout(() => {
-          try {
-            let x = onFulfilled(this.value);
-            resolvePromise(x, promise2, resolve, reject);
-          } catch (error) {
-            reject(error);
-          }
-        }, 0);
-      }
-      // 失败状态
-      if (this.status === STATUS.REJECTED) {
-        setTimeout(() => {
-          try {
-            let x = onRejected(this.reason);
-            resolvePromise(x, promise2, resolve, reject);
-          } catch (error) {
-            reject(error);
-          }
-        }, 0);
-      }
-      // 等待状态
-      if (this.status === STATUS.PENDING) {
-        this.onResolvedCallbacks.push(() => {
-          setTimeout(() => {
-            try {
-              let x = onFulfilled(this.value);
-              resolvePromise(x, promise2, resolve, reject);
-            } catch (error) {
-              reject(error);
-            }
-          }, 0);
-        });
-        this.onRejectedCallbacks.push(() => {
-          setTimeout(() => {
-            try {
-              let x = onRejected(this.reason);
-              resolvePromise(x, promise2, resolve, reject);
-            } catch (error) {
-              reject(error);
-            }
-          }, 0);
-        });
-      }
-    });
-
-    return promise2;
-  }
-
-  catch (err) {
-    // 默认没有成功 只有失败
-    return this.then(null, err);
-  }
-
-  static resolve (val) {
-    return new Promise((resolve, reject) => {
-      resolve(val);
-    });
-  }
-
-  static reject (reason) {
-    // 失败的promise
-    return new Promise((resolve, reject) => {
-      reject(reason);
-    });
-  }
-}
-
-// promise的测试方法
-Promise.defer = Promise.deferred = () => {
-  let dfd = {};
-  dfd.promise = new Promise((resolve, reject) => {
-    dfd.resolve = resolve;
-    dfd.reject = reject;
-  });
-  return dfd;
-};
-
-module.exports = Promise;
-```
+<<< @/interview/code/Promise.ts
 
 ## 好文
 
@@ -868,8 +732,3 @@ module.exports = Promise;
 - [nodejs源码解析](https://github.com/theanarkh/understand-nodejs)
 
 ## Node相关
-
-### 执行一个nodejs文件是一进程还是线程
-
-- 进程是应用程序的执行副本。（OS分配资源的最小单位）
-- 线程是轻量级的进程。（OS执行程序的最小单位）

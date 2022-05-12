@@ -102,41 +102,45 @@ module.exports = {
                 text: '脚手架',
                 link: '/project/cli/',
               },
-              {
-                text: 'GUI',
-                link: '/project/gui/',
-              },
-              {
-                text: '自动化发布',
-                link: '/project/publish/',
-              },
-              {
-                text: '自动化测试',
-                link: '/project/test/',
-              },
+              // {
+              //   text: 'GUI',
+              //   link: '/project/gui/',
+              // },
+              // {
+              //   text: '自动化发布',
+              //   link: '/project/publish/',
+              // },
+              // {
+              //   text: '自动化测试',
+              //   link: '/project/test/',
+              // },
             ],
           },
-          {
-            text: 'Typescript',
-            items: [
-              {
-                text: 'Typescript基础',
-                link: '/typescript/basics/index',
-              },
-              {
-                text: 'Typescript进阶',
-                link: '/typescript/senior/index',
-              },
-            ],
-          },
+          // {
+          //   text: 'Typescript',
+          //   items: [
+          //     {
+          //       text: 'Typescript基础',
+          //       link: '/typescript/basics/index',
+          //     },
+          //     {
+          //       text: 'Typescript进阶',
+          //       link: '/typescript/senior/index',
+          //     },
+          //   ],
+          // },
           {
             text: 'Vue源码解析',
             link: '/vue-analysis/',
           },
+          // {
+          //   text: 'React源码解析',
+          //   link: '/react-analysis/',
+          // },
           {
-            text: 'React源码解析',
-            link: '/react-analysis/',
-          },
+            text: 'Github',
+            link: 'https://github.com/792472461'
+          }
         ],
         sidebar: {
           '/algorithm/': [
