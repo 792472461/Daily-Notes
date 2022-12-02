@@ -1,3 +1,3 @@
-export function ReactRoot () {
-
+export function ReactRoot() {
+  console.log('ReactRoot');
 }

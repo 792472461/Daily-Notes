@@ -1,11 +1,7 @@
-import { Placement } from './utils/flags'
+import { Placement } from './utils/flags';
 
-export function ReactFiber (vnode, retunFiber) {
-  const {
-    type,
-    key,
-    props
-  } = vnode
+export function ReactFiber(vnode, retunFiber) {
+  const { type, key, props } = vnode;
   return {
     type,
     key,
@@ -21,5 +17,5 @@ export function ReactFiber (vnode, retunFiber) {
     // 当前任务的状态，删除、插入、更新
     flag: Placement,
     index: null
-  }
+  };
 }
