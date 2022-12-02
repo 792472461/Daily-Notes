@@ -18,5 +18,5 @@ features:
   - title: React源码解析
     details: 最小粒度解析react源码
 
-footer: Copyright © 2021-present Songfengshuai
+footer: Copyright © 2021-present Songfengshuai | <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021036489号-1</a>
 ---

@@ -20,6 +20,7 @@ module.exports = {
       lang: 'zh-CN',
       title: '一个不正经的博客',
       description: 'By Songfengshuai',
+
     },
   },
 
@@ -227,5 +228,6 @@ module.exports = {
       },
 
     },
+
   },
 }
