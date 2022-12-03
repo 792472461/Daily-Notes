@@ -14,15 +14,20 @@
     "esModuleInterop": true,
     "removeComments": false,
     "jsx": "preserve",
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "rootDir": ".",
     "paths": {
-      "@theme/*": [".vitepress/theme/*"]
+      "@theme/*": [
+        ".vitepress/theme/*"
+      ]
     }
   },
   "include": [
-    "docs/*/code",
-    "src/**/*", ".vitepress/**/*",
-    "env.d.ts"
-  ]
+    "env.d.ts",
+    "packages/**/*"
+  ],
+  "exclude": ["node_modules"]
 }
