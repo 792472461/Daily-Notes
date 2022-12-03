@@ -1,5 +1,5 @@
 <template>
-  <img src="/avatar.png" alt="logo" class="logo" width="24" height="24" />
+  <img src="/logo.png" alt="logo" class="logo" width="24" height="24" />
   <span class="text">加油站</span>
 </template>
 
