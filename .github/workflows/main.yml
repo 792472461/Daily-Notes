@@ -20,16 +20,18 @@ jobs:
         run: pnpm install
       - name: Build website
         run: pnpm docs:build
-      - name: ssh deploy
-        uses: easingthemes/ssh-deploy@v2.2.11
+      # - name: deploy to github pages
+      - name: deploy to server
+        uses: cross-the-world/scp-pipeline@master
         with:
-          # Private Key
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          # Remote host
-          REMOTE_HOST: ${{ secrets.HOST }}
-          # Remote user
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          # Source directory
-          SOURCE: ./dist
-          # Target directory
-          TARGET: /project/blog
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY  }}
+          connect_timeout: 10s
+          first_ssh: |
+            cd ~/projects/website
+            rm -rf *
+          scp: |
+            'dist/*' => ~/projects/website
+          last_ssh: |
+            echo "deploy success"
