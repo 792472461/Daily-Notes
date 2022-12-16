@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build website
-        run: docs:build
+        run: pnpm docs:build
       - name: ssh deploy
         uses: easingthemes/ssh-deploy@v3.0.1
         with:
