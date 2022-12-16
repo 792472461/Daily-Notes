@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.4
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build website
+        run: docs:build
+      - name: ssh deploy
+        uses: easingthemes/ssh-deploy@v3.0.1
+        with:
+          # Private Key
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          # Remote host
+          REMOTE_HOST: ${{ secrets.HOST }}
+          # Remote user
+          REMOTE_USER: ${{ secrets.PRIVATE_KEY }}
+          # Source directory
+          SOURCE: ./dist
+          # Target directory
+          TARGET: /root/project/792472461.github.io

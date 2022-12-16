@@ -9,7 +9,8 @@
     "lint:fix": "eslint --fix packages/**/*.{js,ts,tsx}",
     "docs": "vitepress dev packages/docs",
     "docs:build": "vitepress build packages/docs",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm"
   },
   "lint-staged": {
     "**/*.{js,jsx,tsx,ts}": [

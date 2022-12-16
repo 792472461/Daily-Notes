@@ -19,15 +19,14 @@
       "dom"
     ],
     "rootDir": ".",
-    "paths": {
-      "@theme/*": [
-        ".vitepress/theme/*"
-      ]
-    }
+    "paths": {}
   },
   "include": [
     "env.d.ts",
-    "packages/**/*"
+    "packages/**/*",
+    "packages/docs/.vitepress/**/*"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

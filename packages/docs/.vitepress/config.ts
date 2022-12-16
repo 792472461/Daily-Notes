@@ -300,13 +300,15 @@ export const sidebar: ThemeConfig["sidebar"] = {
   ]
 };
 
+console.log(__dirname)
 
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
   lang: "zh-CN",
-  title: "宋宋",
+  title: "前端",
   description: "生活不止眼前的苟且，还有诗和远方的田野",
   srcDir: "src",
+  outDir: path.resolve(__dirname, "../../../dist"),
   scrollOffset: "header",
   head: [
     ["meta", { name: "theme-color", content: "#3c8772" }],
