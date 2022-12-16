@@ -26,12 +26,12 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY  }}
+          pass: ${{ secrets.PASSWORD  }}
           connect_timeout: 10s
           first_ssh: |
-            cd ${{secrets.USERNAME}}/project/website
+            cd ${{ secrets.USERNAME }}/project/website
             rm -rf *
           scp: |
-            'dist/*' => ${{secrets.USERNAME}}/project/website/
+            './dist/*' => ${{ secrets.USERNAME }}/project/website/
           last_ssh: |
             echo "deploy success"
