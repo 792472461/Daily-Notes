@@ -29,9 +29,9 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY  }}
           connect_timeout: 10s
           first_ssh: |
-            cd /projects/website
+            cd ${{secrets.USERNAME}}/project/website
             rm -rf *
           scp: |
-            'dist/*' => /projects/website/
+            'dist/*' => ${{secrets.USERNAME}}/project/website/
           last_ssh: |
             echo "deploy success"
