@@ -22,7 +22,7 @@ jobs:
         run: pnpm docs:build
       # - name: deploy to github pages
       - name: deploy to server
-        uses: cross-the-world/scp-pipeline@master
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
