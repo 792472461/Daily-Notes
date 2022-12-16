@@ -32,4 +32,4 @@ jobs:
           # Source directory
           SOURCE: ./dist
           # Target directory
-          TARGET: /root/project/blog
+          TARGET: /project/blog
