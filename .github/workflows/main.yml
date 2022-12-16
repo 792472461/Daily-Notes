@@ -21,7 +21,7 @@ jobs:
       - name: Build website
         run: pnpm docs:build
       - name: ssh deploy
-        uses: easingthemes/ssh-deploy@v3.0.1
+        uses: easingthemes/ssh-deploy@v2.2.11
         with:
           # Private Key
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
@@ -33,4 +33,3 @@ jobs:
           SOURCE: ./dist
           # Target directory
           TARGET: /project/blog
-          REMOTE_PORT: 22 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa
