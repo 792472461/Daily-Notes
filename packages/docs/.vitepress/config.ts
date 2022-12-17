@@ -2,8 +2,9 @@ import fs from "fs";
 import path from "path";
 import { defineConfigWithTheme } from "vitepress";
 import type { Config as ThemeConfig } from "@vue/theme";
-import baseConfig from "@vue/theme/config";
 import { headerPlugin } from "./headerMdPlugin";
+import baseConfig from '@vue/theme/config'
+
 
 const nav: ThemeConfig["nav"] = [
   {
@@ -300,8 +301,6 @@ export const sidebar: ThemeConfig["sidebar"] = {
   ]
 };
 
-console.log(__dirname)
-
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
   lang: "zh-CN",
@@ -326,16 +325,24 @@ export default defineConfigWithTheme<ThemeConfig>({
     ]
 
   ],
-
   themeConfig: {
     nav,
     sidebar,
     socialLinks: [
       { icon: "github", link: "https://github.com/792472461/" }
     ],
-
     footer: {
       copyright: `Copyright © 2021-${new Date().getFullYear()} SongFengshuai`
+    },
+    i18n: {
+      search: '搜索',
+      menu: '菜单',
+      toc: '目录',
+      returnToTop: '返回顶部',
+      appearance: '主题',
+      previous: '上一篇',
+      next: '下一篇',
+      pageNotFound: '404',
     }
   },
 
@@ -344,16 +351,13 @@ export default defineConfigWithTheme<ThemeConfig>({
       md.use(headerPlugin);
     }
   },
-
   vite: {
     define: {
       __VUE_OPTIONS_API__: false
     },
     optimizeDeps: {
-      include: ["gsap", "dynamics.js"],
       exclude: ["@vue/repl"]
     },
-    // @ts-ignore
     ssr: {
       external: ["@vue/repl"]
     },
@@ -373,7 +377,8 @@ export default defineConfigWithTheme<ThemeConfig>({
     }
   },
 
-  vue: {
-    reactivityTransform: true
-  }
+  // vue: {
+  //   reactivityTransform: true
+  // }
+
 });

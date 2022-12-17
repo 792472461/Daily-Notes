@@ -3,7 +3,7 @@
   <span class="text">加油站</span>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "NavBar"
 };

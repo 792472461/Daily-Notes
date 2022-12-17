@@ -1,7 +1,7 @@
-import './styles/index.css'
-import { h, App } from 'vue'
+import { h } from 'vue'
 import { VPTheme } from '@vue/theme'
 import NavBar from "./components/NavBar.vue";
+import './styles/index.css'
 
 export default Object.assign({}, VPTheme, {
   Layout: () => {
@@ -9,5 +9,5 @@ export default Object.assign({}, VPTheme, {
       'navbar-title': () => h(NavBar),
     })
   },
-  enhanceApp({ app }: { app: App }) {}
 })
+

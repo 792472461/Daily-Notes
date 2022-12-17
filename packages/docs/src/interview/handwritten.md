@@ -53,7 +53,29 @@ const deepClone = (obj) => {
 }
 ```
 
+## 深比较
+
+```js
+/**
+ * 深度比较两个对象
+ * @param {*} a
+ * @param {*} b
+ */
+ */
+const isEquals = (a, b) => {
+  if (a === b) return true;
+  if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();
+  if (!a || !b || (typeof a !== "object" && typeof b !== "object")) return a === b;
+  if (a.prototype !== b.prototype) return false;
+  const keys = Object.keys(a);
+  if (keys.length !== Object.keys(b).length) return false;
+  return keys.every((key) => isEquals(a[key], b[key]));
+};
+```
+
 ## 节流函数
+
+节流函数，用于限制函数的执行频率，比如在滚动事件中，如果不使用节流函数，那么在滚动过程中，函数会被频繁调用，这样会造成性能问题，因此我们可以使用节流函数，限制函数的执行频率，比如每隔100ms执行一次
 
 ```js
 /**
@@ -76,6 +98,8 @@ const throttle = (fn, delay) => {
 ```
 
 ## 防抖函数
+
+防抖函数，用于限制函数的执行频率，比如在滚动事件中，如果不使用防抖函数，那么在滚动过程中，函数会被频繁调用，这样会造成性能问题，因此我们可以使用防抖函数，限制函数的执行频率，比如在滚动结束后，再执行函数
 
 ```js
 /**
@@ -158,7 +182,77 @@ const curry = (fn) => {
 }
 ```
 
-## LRU 缓存
+## 重试请求
+  
+```js
+/**
+ * @description: 重试请求
+ * @param {Function} fn
+ * @param {Number} count
+ * @return {Promise}
+ */
+function retry (fn, count = 3) {
+  return new Promise((resolve, reject) => {
+    function attempt () {
+      fn()
+        .then(resolve)
+        .catch((err) => {
+          console.log(`还有${count}次机会`);
+          if (count === 1) {
+            reject(err);
+            return;
+          }
+          count--;
+          attempt();
+        });
+    }
+    attempt();
+  });
+}
+```
+
+## 请求并发控制
+
+```js
+/**
+ * @description: 请求并发控制
+ * @param {Array} urls
+ * @param {Number} max
+ * @return {Promise}
+ */
+function request (urls, max) {
+  const len = urls.length;
+  const result = new Array(len).fill(false);
+  let i = 0;
+  return new Promise((resolve, reject) => {
+    function send () {
+      while (i < max) {
+        const current = i++;
+        fetch(urls[current])
+          .then((res) => {
+            result[current] = res;
+            if (result.filter(Boolean).length === len) {
+              resolve(result);
+            } else if (i < len) {
+              send();
+            }
+          })
+          .catch((err) => {
+            result[current] = err;
+            if (result.filter(Boolean).length === len) {
+              resolve(result);
+            } else if (i < len) {
+              send();
+            }
+          });
+      }
+    }
+    send();
+  });
+}
+```
+
+## 实现LRU 缓存
 
 ```js
 function Node (val, next = null, pre = null) {
@@ -279,7 +373,7 @@ Function.prototype.myBind = function (context) {
 }
 ```
 
-### 实现new
+## 实现new
 
 ```js
 /**
@@ -340,6 +434,32 @@ class EventBus {
 }
 ```
 
+## 实现发布订阅
+
+```js
+class EventEmitter {
+  constructor() {
+    // 事件对象，存放订阅的名字和事件
+    this.events = {};
+  }
+  // 订阅事件的方法
+  on(eventName,callback) {
+    if (!this.events[eventName]) {
+      // 注意数据，一个名字可以订阅多个事件函数
+      this.events[eventName] = [callback];
+    } else  {
+      // 存在则push到指定数组的尾部保存
+      this.events[eventName].push(callback)
+    }
+  }
+  // 触发事件的方法
+  emit(eventName) {
+    // 遍历执行所有订阅的事件
+    this.events[eventName] && this.events[eventName].forEach(cb => cb());
+  }
+}
+```
+
 ## 实现简易时间切片
 
 ```js
@@ -387,6 +507,133 @@ const workLoop = async (deadline) => {
   }
 }
 requestIdleCallback(workLoop)
+```
+
+## 实现jsonp
+
+原理：动态创建script标签，src指向一个带有callback参数的url，服务端返回一个函数调用，函数的参数就是我们需要的数据
+
+```js
+const jsonp = (url, params, callback) => {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    window[callback] = function (data) {
+      resolve(data)
+      document.body.removeChild(script)
+    }
+    params = { ...params, callback }
+    let arrs = []
+    for (let key in params) {
+      arrs.push(`${key}=${params[key]}`)
+    }
+    script.src = `${
+      url.indexOf('?') > -1 ? url : url + '?'
+    }${arrs.join('&')}`
+    document.body.appendChild(script)
+  })
+}
+```
+
+## 实现简易reactive
+
+reactive的原理就是通过Object.defineProperty来监听对象的变化，当对象发生变化时，执行对应的回调函数
+
+```js
+const isObject = (target) => {
+  return typeof target === 'object' && target !== null
+}
+const hasOwn = (target, key) => {
+  return target.hasOwnProperty(key)
+}
+const reactive = (target) => {
+  if (!isObject(target)) {
+    return target
+  }
+  const handler = {
+    get (target, key, receiver) {
+      const res = Reflect.get(target, key, receiver)
+      console.log('get', key, res)
+      return isObject(res) ? reactive(res) : res
+    },
+    set (target, key, value, receiver) {
+      const hadKey = hasOwn(target, key)
+      const oldValue = target[key]
+      const res = Reflect.set(target, key, value, receiver)
+      if (!hadKey) {
+        console.log('add', key, value)
+      } else if (oldValue !== value) {
+        console.log('update', key, value)
+      }
+      return res
+    },
+    deleteProperty (target, key) {
+      const res = Reflect.deleteProperty(target, key)
+      if (res) {
+        console.log('delete', key)
+      }
+      return res
+    }
+  }
+  return new Proxy(target, handler)
+}
+```
+
+## 实现图片懒加载
+
+```js
+const imgs = document.querySelectorAll('img')
+const len = imgs.length
+let count = 0
+const load = () => {
+  let seeHeight = document.documentElement.clientHeight
+  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  for (let i = count; i < len; i++) {
+    if (imgs[i].offsetTop < seeHeight + scrollTop) {
+      if (imgs[i].getAttribute('src') === 'default.jpg') {
+        imgs[i].src = imgs[i].getAttribute('data-src')
+      }
+      count++
+    }
+  }
+}
+load()
+window.addEventListener('scroll', load)
+```
+
+## 实现 getValue/setValue 函数来获取 path 对应的值
+
+```js
+const obj = {
+  a: {
+    b: {
+      c: 1
+    }
+  },
+  d: [2, 3]
+}
+const getValue = (obj, path) => {
+  return path.split('.').reduce((prev, next) => {
+    if(next.indexOf('[') > -1) {
+      const index = next.match(/\[(\d+)\]/)[1]
+      next = next.replace(/\[(\d+)\]/, '')
+      return prev[next][index]
+    }
+    return prev[next]
+  }, obj)
+}
+const setValue = (obj, path, value) => {
+  let paths = path.split('.')
+  let key = paths.pop()
+  let target = paths.reduce((prev, next) => {
+    return prev[next]
+  }, obj)
+  target[key] = value
+}
+console.log(getValue(obj, 'a.b.c')) // 1
+console.log(getValue(obj, 'd[0]')) // 2
+setValue(obj, 'a.b.c', 2)
+setValue(obj, 'd[1]', 4)
+console.log(obj) // { a: { b: { c: 2 } }, d: [ 2, 4 ] }
 ```
 
 ## 实现Promise
@@ -576,5 +823,31 @@ Promise.defer = Promise.deferred = () => {
   });
   return dfd;
 };
+```
 
+## 实现Promise.all
+
+```js
+/**
+ * @description: Promise.all
+ * @param {Array} promises
+ * @return {Promise}
+ */
+Promise.all = function (promises) {
+  return new Promise((resolve, reject) => {
+    let arr = [];
+    let i = 0;
+    function processData (index, data) {
+      arr[index] = data;
+      if (++i === promises.length) {
+        resolve(arr);
+      }
+    }
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then((data) => {
+        processData(i, data);
+      }, reject);
+    }
+  });
+};
 ```
