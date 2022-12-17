@@ -18,7 +18,7 @@
 
 :::
 
-## 代码实现
+## 代码实现 {#code}
 
 ```javascript
 class Node {

@@ -2,7 +2,7 @@
 
 队列是遵循先进先出（FIFO，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。
 
-## 队列的接口定义
+## 队列的接口定义 {#interface}
 
 ```typescript
 interface Queue<T> {
@@ -19,7 +19,7 @@ interface Queue<T> {
 }
 ```
 
-## 创建队列
+## 创建队列 {#code}
 
 创建一个类来表示队列
 
@@ -33,13 +33,12 @@ class Queue {
 }
 ```
 
-## 实现入队操作
+## 实现入队操作 {#enqueue}
 
 入队操作，该方法负责向队列添加新元素，新元素只能添加到队尾
 
 ```javascript
-enqueue(element)
-{
+enqueue(element) {
   this.items[this.count] = element;
   this.count++;
 }
@@ -69,13 +68,12 @@ dequeue()
 }
 ```
 
-## 查看队首元素
+## 查看队首元素 {#peek}
 
 额外辅助方法，用来查看队首元素的。
 
 ```javascript
-peek()
-{
+peek() {
   // 队首为空返回undefined
   if (this.isEmpty()) {
     return undefined;
@@ -85,13 +83,12 @@ peek()
 }
 ```
 
-## 实现isEmpty和size
+## 实现isEmpty和size {#isEmptyAndSize}
 
 isEmpty函数比较简单，只需要判断队首指针和队尾指针是否一样就可以了
 
 ```javascript
-isEmpty()
-{
+isEmpty() {
   return this.count - this.lowestCount === 0;
 }
 ```
@@ -99,8 +96,7 @@ isEmpty()
 同理如果我们要计算队列的长度，队尾指针减去队首指针就是队列的长度
 
 ```javascript
-size()
-{
+size() {
   return this.count - this.lowestCount;
 }
 ```
@@ -108,26 +104,24 @@ size()
 简化isEmpty
 
 ```javascript
-isEmpty()
-{
+isEmpty() {
   return this.size() === 0;
 }
 ```
 
-## 清空队列
+## 清空队列 {#clear}
 
 清空队列也比较简单，只需要把队列的属性值重置一下就可以了
 
 ```javascript
-clear()
-{
+clear() {
   this.items = {};
   this.count = 0;
   this.lowestCount = 0;
 }
 ```
 
-## 双端队列的数据结构
+## 双端队列的数据结构 {#structure}
 
 双端队列（deque，即double-ended queue的缩写）是一种具有队列和栈性质的数据结构，即可（也只能）在线性表的两端进行插入和删除。
 

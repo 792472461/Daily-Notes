@@ -1,6 +1,6 @@
 # 手写题篇
 
-## 深合并
+## 深合并 {#deepMerge}
 
 ```js
 /**
@@ -30,7 +30,7 @@ const deepMerge = (target, source) => {
 }
 ```
 
-## 深拷贝
+## 深拷贝 {#deepClone}
 
 简易深拷贝，不考虑循环引用
 
@@ -53,7 +53,7 @@ const deepClone = (obj) => {
 }
 ```
 
-## 深比较
+## 深比较 {#isEquals}
 
 ```js
 /**
@@ -73,7 +73,7 @@ const isEquals = (a, b) => {
 };
 ```
 
-## 节流函数
+## 节流函数 {#throttle}
 
 节流函数，用于限制函数的执行频率，比如在滚动事件中，如果不使用节流函数，那么在滚动过程中，函数会被频繁调用，这样会造成性能问题，因此我们可以使用节流函数，限制函数的执行频率，比如每隔100ms执行一次
 
@@ -97,7 +97,7 @@ const throttle = (fn, delay) => {
 }
 ```
 
-## 防抖函数
+## 防抖函数 {#debounce}
 
 防抖函数，用于限制函数的执行频率，比如在滚动事件中，如果不使用防抖函数，那么在滚动过程中，函数会被频繁调用，这样会造成性能问题，因此我们可以使用防抖函数，限制函数的执行频率，比如在滚动结束后，再执行函数
 
@@ -121,7 +121,7 @@ const debounce = (fn, delay) => {
 }
 ```
 
-## 数组扁平化
+## 数组扁平化 {#flatten}
 
 ```js
 /**
@@ -135,7 +135,7 @@ const flatten = (arr) => {
 }
 ```
 
-## 数组去重
+## 数组去重 {#unique}
 
 ```js
 /**
@@ -150,7 +150,7 @@ const unique = (arr) => {
 }
 ```
 
-## 数组乱序
+## 数组乱序 {#shuffle}
 
 ```js
 /**
@@ -162,7 +162,7 @@ const shuffle = (arr) => {
 }
 ```
 
-## 函数柯里化
+## 函数柯里化 {#curry}
 
 ```js
 /**
@@ -182,7 +182,7 @@ const curry = (fn) => {
 }
 ```
 
-## 重试请求
+## 重试请求 {#retry}
   
 ```js
 /**
@@ -211,7 +211,7 @@ function retry (fn, count = 3) {
 }
 ```
 
-## 请求并发控制
+## 请求并发控制 {#requestAndMax}
 
 ```js
 /**
@@ -252,7 +252,7 @@ function request (urls, max) {
 }
 ```
 
-## 实现LRU 缓存
+## 实现LRU 缓存 {#LRU}
 
 ```js
 function Node (val, next = null, pre = null) {
@@ -328,7 +328,7 @@ LRUCache.prototype.put = function (key, value) {
 }
 ```
 
-## 实现call、apply、bind
+## 实现call、apply、bind {#callAndApplyAndBind}
 
 ```js
 /**
@@ -373,7 +373,7 @@ Function.prototype.myBind = function (context) {
 }
 ```
 
-## 实现new
+## 实现new {#new}
 
 ```js
 /**
@@ -388,7 +388,7 @@ function myNew (fn, ...args) {
 }
 ```
 
-## 实现instanceof
+## 实现instanceof {#instanceof}
 
 ```js
 /**
@@ -406,7 +406,7 @@ function myInstanceof (left, right) {
 }
 ```
 
-## 实现eventBus
+## 实现eventBus {#eventBus}
 
 ```js
 class EventBus {
@@ -434,7 +434,7 @@ class EventBus {
 }
 ```
 
-## 实现发布订阅
+## 实现发布订阅 {#eventEmitter}
 
 ```js
 class EventEmitter {
@@ -460,7 +460,7 @@ class EventEmitter {
 }
 ```
 
-## 实现简易时间切片
+## 实现简易时间切片 {#timeSlice}
 
 ```js
 const sleep = (time) => {
@@ -509,7 +509,7 @@ const workLoop = async (deadline) => {
 requestIdleCallback(workLoop)
 ```
 
-## 实现jsonp
+## 实现jsonp {#jsonp}
 
 原理：动态创建script标签，src指向一个带有callback参数的url，服务端返回一个函数调用，函数的参数就是我们需要的数据
 
@@ -534,7 +534,7 @@ const jsonp = (url, params, callback) => {
 }
 ```
 
-## 实现简易reactive
+## 实现简易reactive {#reactive}
 
 reactive的原理就是通过Object.defineProperty来监听对象的变化，当对象发生变化时，执行对应的回调函数
 
@@ -578,7 +578,7 @@ const reactive = (target) => {
 }
 ```
 
-## 实现图片懒加载
+## 实现图片懒加载 {#lazyLoad}
 
 ```js
 const imgs = document.querySelectorAll('img')
@@ -600,7 +600,7 @@ load()
 window.addEventListener('scroll', load)
 ```
 
-## 实现 getValue/setValue 函数来获取 path 对应的值
+## 实现 getValue/setValue 函数来获取 path 对应的值 {#getValueAndsetValue}
 
 ```js
 const obj = {
@@ -636,7 +636,7 @@ setValue(obj, 'd[1]', 4)
 console.log(obj) // { a: { b: { c: 2 } }, d: [ 2, 4 ] }
 ```
 
-## 实现Promise
+## 实现Promise {#Promise}
 
 符合Promise/A+规范的Promise
 
@@ -825,7 +825,7 @@ Promise.defer = Promise.deferred = () => {
 };
 ```
 
-## 实现Promise.all
+## 实现Promise.all {PromiseAll}
 
 ```js
 /**

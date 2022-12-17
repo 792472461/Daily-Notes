@@ -1,6 +1,6 @@
 # HTML篇
 
-## 对HTML语义化的理解
+## 对HTML语义化的理解 {#HTMLSemanticization}
 
 HTML语义化是指在编写HTML代码时，让代码的结构化、语义化，便于对浏览器、搜索引擎解析；使阅读源代码的人对代码的意图一目了然，便于团队开发和维护。
 
@@ -21,13 +21,13 @@ HTML语义化是指在编写HTML代码时，让代码的结构化、语义化，
 - aside：定义文档的侧边栏；
 - footer：定义文档或者区域的页脚；
 
-## HTML5有哪些新特性、移除了那些元素
+## HTML5有哪些新特性、移除了那些元素 {#HTML5}
 
 HTML5新增了很多新的标签，如：header、footer、nav、section、article、aside、figure、figcaption、time、mark、progress、meter、video、audio、canvas、datalist、keygen、output、details、summary、command、menu、dialog、source、track、embed、object、param、ruby、rt、rp、bdi、bdo、wbr、ins、del、canvas、svg、mathml等。
 
 HTML5移除了一些元素，如：basefont、big、center、font、s、strike、tt、u等。
 
-## HTML5的离线储存怎么使用，工作原理能不能解释一下
+## HTML5的离线储存怎么使用，工作原理能不能解释一下 {#HTML5OfflineStorage}
 
 HTML5提供了离线存储的功能，可以在本地存储数据，即使用户断网也可以访问。
 

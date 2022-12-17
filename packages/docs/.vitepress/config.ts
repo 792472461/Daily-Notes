@@ -108,10 +108,6 @@ export const sidebar: ThemeConfig["sidebar"] = {
           link: "/interview/browser"
         },
         {
-          text: "性能优化",
-          link: "/interview/performance"
-        },
-        {
           text: "工程化",
           link: "/interview/engineering"
         },
