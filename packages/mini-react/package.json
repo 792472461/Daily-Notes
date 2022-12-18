@@ -5,7 +5,7 @@
   "keywords": [
     "react"
   ],
-  "author": "宋封帅 <17600205539@163.com>",
+  "author": "fengshuai",
   "homepage": "",
   "license": "ISC",
   "main": "lib/mini-react.js",
@@ -16,9 +16,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "http://npm.weimob.com/"
-  },
   "repository": {
     "type": "git",
     "url": "github.com:792472461/daydayup.git"
