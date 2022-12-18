@@ -293,3 +293,68 @@ var removeNthFromEnd = function (head, n) {
 };
 
 ```
+
+## [6.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) {#mergeTwoLists}
+
+将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+
+示例 1：
+
+```text
+输入：l1 = [1,2,4], l2 = [1,3,4]
+
+输出：[1,1,2,3,4,4]
+```
+
+示例 2：
+
+```text
+输入：l1 = [], l2 = []
+
+输出：[]
+```
+
+示例 3：
+
+```text
+输入：l1 = [], l2 = [0]
+
+输出：[0]
+```
+
+代码：
+
+```js
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+const mergeTwoLists = function(l1, l2) {
+  // 创建虚拟头节点,并创建一个指针指向它
+  let ret = new ListNode(-1),
+    cur = ret
+  // 当l1和l2都不为空时，比较l1和l2的值，将小的值赋给cur.next
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      cur.next = l1
+      l1 = l1.next
+    } else {
+      cur.next = l2
+      l2 = l2.next
+    }
+    cur = cur.next
+  }
+  cur.next = l1 ? l1 : l2
+  return ret.next
+}
+```

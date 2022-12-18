@@ -119,3 +119,83 @@
 - 缺点
   - 需要编译
   - 有一定的学习成本
+
+## CSS3 {#css3}
+
+### CSS3有哪些新特性
+
+- 新增选择器
+  - 后代选择器
+  - 子选择器
+  - 相邻兄弟选择器
+  - 通用兄弟选择器
+  - 属性选择器
+  - 伪类选择器
+  - 伪元素选择器
+- 新增属性
+  - 文本属性
+  - 背景属性
+  - 边框属性
+  - 盒模型属性
+  - 列表属性
+  - 表格属性
+  - 转换属性
+  - 动画属性
+  - 多列属性
+  - 用户界面属性
+  - 媒体查询属性
+  - 其他属性
+- 新增伪类
+  - :root
+  - :nth-child()
+  - :nth-last-child()
+  - :nth-of-type()
+  - :nth-last-of-type()
+  - :first-child
+  - :last-child
+  - :first-of-type
+  - :last-of-type
+  - :only-child
+  - :only-of-type
+  - :empty
+  - :link
+  - :visited
+  - :active
+  - :hover
+  - :focus
+  - :target
+  - :enabled
+  - :disabled
+  - :checked
+  - :not()
+- 新增伪元素
+  - ::before
+  - ::after
+  - ::first-letter
+  - ::first-line
+- 新增动画
+  - @keyframes
+  - animation
+  - animation-name
+  - animation-duration
+  - animation-timing-function
+  - animation-delay
+  - animation-iteration-count
+  - animation-direction
+  - animation-fill-mode
+  - animation-play-state
+- 新增媒体查询
+  - @media
+  - @import
+  - @charset
+  - @namespace
+  - @supports
+  - @document
+  - @page
+  - @font-face
+  - @keyframes
+  - @viewport
+  - @counter-style
+  - @font-feature-values
+  - @property
+  - @color-profile
