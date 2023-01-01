@@ -321,6 +321,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     ]
 
   ],
+  lastUpdated: true,
   themeConfig: {
     nav,
     sidebar,
