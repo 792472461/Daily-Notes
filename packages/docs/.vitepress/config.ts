@@ -319,7 +319,6 @@ export default defineConfigWithTheme<ThemeConfig>({
         "utf-8"
       )
     ]
-
   ],
   lastUpdated: true,
   themeConfig: {
