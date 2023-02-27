@@ -15,7 +15,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          pnpm-version: '7.x'
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 7.18.2
       - name: Install dependencies
         run: pnpm install
       - name: Build website
