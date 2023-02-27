@@ -11,25 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.2.4
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          version: 7.18.2
+          node-version: '18.x'
       - name: Install dependencies
         run: pnpm install
       - name: Build website
         run: pnpm docs:build
       # - name: deploy to github pages
-      - name: deploy to server
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-        with:
-          host: ${{ secrets.HOST }}
-          user: ${{ secrets.USERNAME }}
-          pass: ${{ secrets.PASSWORD  }}
-          connect_timeout: 10s
-          first_ssh: |
-            cd /project/website
-            rm -rf *
-          scp: |
-            './dist/*' => /project/website/
-          last_ssh: |
-            echo "deploy success"
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET }}
+          # EXCLUDE: "/dist/, /node_modules/"
