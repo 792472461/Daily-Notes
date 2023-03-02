@@ -8,7 +8,6 @@
 
 ```shell
 node -v
-
 ```
 
 如果输出了Node.js的版本号，则表示安装成功。
@@ -19,14 +18,12 @@ node -v
 
 ```shell
 npm install -g typescript
-
 ```
 
 这条命令会全局安装Typescript，安装完成后可以在命令行输入以下命令检查是否安装成功：
 
 ```shell
 tsc -v
-
 ```
 
 如果输出了Typescript的版本号，则表示安装成功。
