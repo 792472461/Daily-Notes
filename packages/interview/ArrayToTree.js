@@ -29,7 +29,7 @@ const arrayToTree = (data, parentId = 0) => {
 };
 
 // 优化
-const arrayToTree1 = (data, parentId = null) => {
+const arrayToTree1 = (data) => {
   const itemMap = {};
   let result = [];
 
@@ -41,13 +41,12 @@ const arrayToTree1 = (data, parentId = null) => {
 
   // 遍历map，把每个数据的子数据放到children里面
   Object.values(itemMap).forEach((item) => {
-    if (item.parentId === parentId) {
-      result.push(item);
+    const parentItem = itemMap[item.parentId];
+
+    if (parentItem) {
+      parentItem.children.push(item);
     } else {
-      const parentItem = itemMap[item.parentId];
-      if (parentItem) {
-        parentItem.children.push(item);
-      }
+      result.push(item);
     }
   });
 

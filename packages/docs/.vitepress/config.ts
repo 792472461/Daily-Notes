@@ -59,6 +59,10 @@ const nav: ThemeConfig["nav"] = [
       {
         text: "Git",
         link: "/git/"
+      },
+      {
+        text: "微前端",
+        link: "/micro-frontend/"
       }
     ]
   }

@@ -1,5 +1,85 @@
 # Css篇
 
+## 盒模型宽度计算 {#boxModelWidth}
+
+```html
+<!-- 以下代码中，请问div1的 offsetWitdh 是多少 -->
+<style>
+  .div1 {
+    width: 100px;
+    padding: 10px;
+    border: 10px solid #000;
+    margin: 10px;
+  }
+</style>
+<div class="div1"></div>
+```
+
+offsetWidth定义是：元素的宽度 + 左右padding + 左右border，不包括margin，所以div1的offsetWidth是140px
+
+::: tip 思考
+如何让div1的offsetWidth等于100px？
+
+```html
+<style>
+  .div1 {
+    width: 100px;
+    padding: 10px;
+    border: 10px solid #000;
+    margin: 10px;
+    box-sizing: border-box;
+  }
+</style>
+<div class="div1"></div>
+```
+
+box-sizing: border-box;表示元素的宽度包括padding和border，所以div1的offsetWidth等于100px
+:::
+
+## margin重叠问题 {#marginCollapse}
+
+```html
+<!-- 1和2的间距是多少 -->
+<style>
+  p {
+    font-size: 20px;
+    line-height: 1;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+</style>
+<p>1</p>
+<p></p>
+<p></p>
+<p></p>
+<p>2</p>
+```
+
+答案是15px，因为margin重叠，取最大值，空标签不会计算margin，所以答案是15px
+
+## margin设置负值 {#marginNegative}
+
+- margin-top、margin-left设置负值，会向上、向左移动元素
+- margin-right设置负值，右侧元素会向左移动，自身不会影响
+- margin-bottom设置负值，下方元素会向上移动，自身不会影响
+
+## BFC {#bfc}
+
+- bfc是块级格式化上下文，一块独立的渲染区域，内部元素的渲染不会影响边界以外的元素
+
+BFC的形成条件：
+
+- float不为none
+- position为absolute或fixed
+- display为inline-block、table-cell、table-caption、flex、inline-flex
+- overflow不为visible
+
+BFC的作用：
+
+- 清除浮动
+- 阻止元素被浮动元素覆盖
+- 阻止margin重叠
+
 ## Flex
 
 ### flex有哪些属性
@@ -46,35 +126,6 @@
   - flex-grow:0
   - flex-shrink:0
   - flex-basis:auto
-
-## BFC
-
-### BFC是什么
-
-- BFC(Block Formatting Context)块级格式化上下文，是Web页面的可视化CSS渲染的一部分，是块级盒子布局的区域，也是浮动元素与其他元素的交互限定区域
-
-### BFC有哪些特性
-
-- 内部的Box会在垂直方向，一个接一个地放置
-- Box垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box的margin会发生重叠
-- 每个元素的margin box的左边，与包含块border box的左边相接触（对于从左往右的格式化，否则相反），即使存在浮动也是如此
-- BFC的区域不会与float box重叠
-- BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之也是如此
-- 计算BFC的高度时，浮动元素也参与计算
-
-### 如何创建BFC
-
-- 根元素或包含根元素的元素
-- 浮动元素：float除none以外的值
-- 绝对定位元素：position (absolute、fixed)
-- display为inline-block、table-cells、flex
-- overflow除了visible以外的值（hidden、auto、scroll）
-
-### BFC的应用
-
-- 清除浮动
-- 阻止元素被浮动元素覆盖
-- 阻止margin重叠
 
 ## CSS选择器 {#cssSelector}
 

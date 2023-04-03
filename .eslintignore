@@ -3,5 +3,4 @@
 package.json
 *.d.ts
 .eslintrc
-tsconfig.json
 **/leetcode/*

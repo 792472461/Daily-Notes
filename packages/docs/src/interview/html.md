@@ -43,3 +43,8 @@ HTML5提供了离线存储的功能，可以在本地存储数据，即使用户
 
 - 首先，需要在html页面中添加一个manifest属性，属性值为manifest文件的路径；
 - 然后，需要在manifest文件中添加需要缓存的文件，如：CACHE MANIFEST、NETWORK、FALLBACK等。
+
+## HTML哪些标签是块级元素，哪些是内联元素
+
+- 块级元素特性是独占一行，可以设置宽高，常见的块级元素有：div、p、h1~h6、ul、ol、li、dl、dt、dd、table、form、hr、pre、address、blockquote、center、fieldset、legend等；
+- 内联元素的特性是不会独占一行，不可以设置宽高，常见的内联元素有：a、span、img、strong、em、b、i、u、s、sub、sup、br、input、select、textarea、label、button、object、embed、param、script、ins、del、map、area、iframe、cite、code、dfn、kbd、samp、var、bdo、q、abbr、acronym、font、big、small、tt、b、i、u、s、strike、applet、basefont、font、frame、frameset、noframes、isindex等。

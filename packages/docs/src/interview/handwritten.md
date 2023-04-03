@@ -851,3 +851,41 @@ Promise.all = function (promises) {
   });
 };
 ```
+
+## 将一个数组旋转k步 {#rotateArray}
+
+```js
+const rotateArray = function (nums, k) {
+  k = k % nums.length;
+  nums.unshift(...nums.splice(nums.length - k));
+};
+
+console.log(rotateArray([1, 2, 3, 4, 5, 6, 7], 3)); // [5,6,7,1,2,3,4]
+```
+
+## [比较版本号](https://leetcode.cn/problems/compare-version-numbers/) {#compareVersion}
+
+```js
+// 方案1: 代码分割
+const compareVersion1 = function(version1, version2) {
+  const v1 = version1.split('.');
+  const v2 = version2.split('.');
+  for (let i = 0; i < v1.length || i < v2.length; ++i) {
+    let x = 0, y = 0;
+    if (i < v1.length) {
+      x = parseInt(v1[i]);
+    }
+    if (i < v2.length) {
+      y = parseInt(v2[i]);
+    }
+    if (x > y) {
+      return 1;
+    }
+    if (x < y) {
+      return -1;
+    }
+  }
+  return 0;
+}
+
+```
