@@ -231,7 +231,7 @@ const reverseList = function (head) {
     // 保存下一个节点
     let next = cur.next
     // 当前节点的next指向前一个节点
-    cur.next = pre
+    cur.next = pre 
     // 前一个节点指向当前节点
     pre = cur
     // 当前节点指向下一个节点
