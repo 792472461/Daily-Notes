@@ -1,7 +1,11 @@
 class Scheduler {
+  // 限制并发数
   constructor(MAX_CONCURRENTLY_EXECUTING = 2) {
+    // 最大并发数
     this.MAX_CONCURRENTLY_EXECUTING = MAX_CONCURRENTLY_EXECUTING;
+    // 当前并发数
     this.RUNING = 0;
+    // 任务队列
     this.queue = [];
   }
 
@@ -17,9 +21,13 @@ class Scheduler {
   }
 
   run() {
+    // 当前并发数小于最大并发数并且任务队列不为空
     while (this.RUNING < this.MAX_CONCURRENTLY_EXECUTING && this.queue.length) {
+      // 取出任务
       const { run, resolve, reject } = this.queue.shift();
+      // 并发数+1
       this.RUNING++;
+      // 执行任务
       run()
         .then(resolve)
         .catch(reject)

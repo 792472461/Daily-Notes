@@ -192,3 +192,54 @@ console.log(i); // ReferenceError: i is not defined
 ```
 
 上面代码中，变量 i 的作用域是块作用域，所以在循环结束后，变量 i 就不存在了，所以在循环结束后，打印变量 i，会报错。
+
+## 判断是数组的方法 {#determine-if-array-method}
+
+1. instanceof
+
+    instanceof 是一个二元运算符，用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+
+    ```js
+    console.log([] instanceof Array); // true
+    console.log({} instanceof Array); // false
+    ```
+
+2. constructor
+  
+      constructor 是原型对象的属性，指向创建当前对象的构造函数。
+  
+      ```js
+      console.log([].constructor === Array); // true
+      console.log({}.constructor === Array); // false
+      ```
+
+3. Object.prototype.toString.call()
+
+    Object.prototype.toString.call() 使用 Object 对象的原型方法 toString 来判断数据类型：
+
+    ```js
+    console.log(Object.prototype.toString.call([])); // "[object Array]"
+    console.log(Object.prototype.toString.call({})); // "[object Object]"
+    ```
+
+4. Array.isArray()
+
+    Array.isArray() 是 ES5 中新增的方法，用于检测给定变量是否是一个数组，返回一个布尔值。
+
+    ```js
+    Array.isArray([]); // true
+    Array.isArray({}); // false
+    ```
+
+## 如果new了一个构造函数会怎样
+
+箭头函数是 ES6 中提出来的，它没有 prototype，也没有自己的 this 指向，更不可以使用 argument 参数，所以不能 new 一个箭头函数
+
+new 操作符的实现步骤如下：
+
+1. 创建一个空的简单 JS 对象 即{}
+2. 为步骤 1 新创建的对象添加属性`___proto__`，将该属性连接到构造函数的原型对象
+3. 将步骤 1 新创建的对象作为 this 的上下文
+4. 如果该函数没有返回对象则返回 this
+
+所以上面的第 2、3 步，箭头函数都是没有办法执行的

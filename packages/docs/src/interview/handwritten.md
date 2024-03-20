@@ -32,8 +32,6 @@ const deepMerge = (target, source) => {
 
 ## 深拷贝 {#deepClone}
 
-简易深拷贝，不考虑循环引用
-
 ```js
 /**
  * @param {any} obj
@@ -51,6 +49,30 @@ const deepClone = (obj) => {
   }
   return result
 }
+
+/**
+ * 深拷贝，解决循环引用版本
+ * @param {any} obj
+ * @return {any}
+ */
+const deepClone2 = (obj, hash = new WeakMap()) => {
+  if (obj instanceof RegExp) return new RegExp(obj);
+  if (obj instanceof Date) return new Date(obj);
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  if (hash.has(obj)) {
+    return hash.get(obj);
+  }
+  const t = new obj.constructor();
+  hash.set(obj, t);
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      t[key] = deepClone(obj[key], hash);
+    }
+  }
+  return t;
+}
 ```
 
 ## 深比较 {#isEquals}
@@ -60,7 +82,6 @@ const deepClone = (obj) => {
  * 深度比较两个对象
  * @param {*} a
  * @param {*} b
- */
  */
 const isEquals = (a, b) => {
   if (a === b) return true;
@@ -209,6 +230,7 @@ function retry (fn, count = 3) {
     attempt();
   });
 }
+
 ```
 
 ## 请求并发控制 {#requestAndMax}

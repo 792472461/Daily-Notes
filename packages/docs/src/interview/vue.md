@@ -30,3 +30,7 @@ MVVM是Model-View-ViewModel的缩写，是一种基于数据绑定的前端架�
     oldVnode.el.textContent = vnode.text
   }  
   ```
+
+MVVM是Model-View-ViewModel的缩写，它是一种设计模式，它的核心思想是通过数据绑定，将Model的变化自动反映到View上，而不需要手动操作DOM。视图(View)和模型(Model)不发生联系，都保存在ViewModel中，当Model发生变化时，ViewModel就会更新，而View也会随之更新。
+
+## MVVM和MVC的区别
